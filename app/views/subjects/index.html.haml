@@ -1,0 +1,18 @@
+%h1 Предметы
+- unless @subjects.empty?
+  %table
+    %tr
+      %th Название
+      %th Класс
+      %th Количество часов
+    - @subjects.each do |f|
+      %tr
+        %td=f.name
+        %td=f.level
+        %td=f.hours_per_week
+        %td=link_to 'Изменить', edit_subject_path(f)
+        %td=link_to 'Удалить', f, :method => :delete, :confirm => "Вы уверены?"
+- else
+  .empty Пустой список
+
+= link_to 'Новый предмет', new_subject_path()

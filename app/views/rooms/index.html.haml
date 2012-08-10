@@ -1,0 +1,16 @@
+%h1 Кабинеты
+- unless @rooms.empty?
+  %table
+    %tr
+      %th Номер
+      %th Кабинет
+    - @rooms.each do |f|
+      %tr
+        %td=f.number
+        %td=f.name
+        %td=link_to 'Изменить', edit_room_path(f)
+        %td=link_to 'Удалить', f, :method => :delete, :confirm => "Вы уверены?"
+- else
+  .empty Пустой список
+
+= link_to 'Новый кабинет', new_room_path()

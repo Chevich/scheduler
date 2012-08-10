@@ -1,0 +1,13 @@
+=link_to "Выйти(#{current_user.email})", destroy_user_session_path(), method: :delete
+%h2 Добро пожаловать в составление расписания
+
+%h3 Основные справочники
+%ul
+  %li=link_to 'Кабинеты', rooms_path()
+  %li=link_to 'Учителя', teachers_path()
+  %li=link_to 'Предметы', subjects_path()
+  %li=link_to 'Классы', klasses_path()
+
+%h3 Связующие справочники
+%ul
+  %li=link_to 'Закрепление кабинетов за предметами', rooms_path()

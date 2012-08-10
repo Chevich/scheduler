@@ -1,0 +1,10 @@
+=form_for @klass do |f|
+  .box
+    =f.label :name, 'Имя (номер)'
+    =f.text_field :name
+  .box
+    =f.label :level, 'Год обучения'
+    =f.text_field :level
+  .box
+    =submit_tag 'Сохранить'
+    =link_to 'Назад', klasses_path()

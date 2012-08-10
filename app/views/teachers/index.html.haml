@@ -1,0 +1,14 @@
+%h1 Учителя
+- unless @teachers.empty?
+  %table
+    %tr
+      %th Фамилия И.О.
+    - @teachers.each do |f|
+      %tr
+        %td=f.fio
+        %td=link_to 'Изменить', edit_teacher_path(f)
+        %td=link_to 'Удалить', f, :method => :delete, :confirm => "Вы уверены?"
+- else
+  .empty Пустой список
+
+= link_to 'Новый учитель', new_teacher_path()

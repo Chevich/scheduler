@@ -1,0 +1,13 @@
+=form_for @subject do |f|
+  .box
+    =f.label :name, 'Название'
+    =f.text_field :name
+  .box
+    =f.label :level, 'Класс'
+    =f.text_field :level
+  .box
+    =f.label :hours_per_week, 'Часов в неделю'
+    =f.text_field :hours_per_week
+  .box
+    =submit_tag 'Сохранить'
+    =link_to 'Назад', subjects_path()

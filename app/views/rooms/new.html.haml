@@ -1,0 +1,10 @@
+=form_for @room do |f|
+  .box
+    =f.label :number, 'Номер'
+    =f.text_field :number
+  .box
+    =f.label :name, 'Описание'
+    =f.text_field :name
+  .box
+    =submit_tag 'Сохранить'
+    =link_to 'Назад', rooms_path()

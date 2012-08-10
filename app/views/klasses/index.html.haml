@@ -1,0 +1,16 @@
+%h1 Классы
+- unless @klasses.empty?
+  %table
+    %tr
+      %th Имя (номер)
+      %th Год обучения
+    - @klasses.each do |f|
+      %tr
+        %td=f.name
+        %td=f.level
+        %td=link_to 'Изменить', edit_klass_path(f)
+        %td=link_to 'Удалить', f, :method => :delete, :confirm => "Вы уверены?"
+- else
+  .empty Пустой список
+
+= link_to 'Новый класс', new_klass_path()

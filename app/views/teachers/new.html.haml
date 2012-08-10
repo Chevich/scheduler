@@ -1,0 +1,7 @@
+=form_for @teacher do |f|
+  .box
+    =f.label :fio, 'Фамилия И.О.'
+    =f.text_field :fio
+  .box
+    =submit_tag 'Сохранить'
+    =link_to 'Назад', teachers_path()
