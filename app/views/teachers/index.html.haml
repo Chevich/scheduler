@@ -7,7 +7,7 @@
       %tr
         %td=f.fio
         %td=link_to 'Изменить', edit_teacher_path(f)
-        %td=link_to 'Удалить', f, :method => :delete, :confirm => "Вы уверены?"
+        %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}
 - else
   .empty Пустой список
 

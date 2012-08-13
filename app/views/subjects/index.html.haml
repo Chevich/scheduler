@@ -11,7 +11,7 @@
         %td=f.level
         %td=f.hours_per_week
         %td=link_to 'Изменить', edit_subject_path(f)
-        %td=link_to 'Удалить', f, :method => :delete, :confirm => "Вы уверены?"
+        %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}
 - else
   .empty Пустой список
 

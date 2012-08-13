@@ -1,3 +1,4 @@
 class Room < ActiveRecord::Base
-  # attr_accessible :title, :body
+  has_many :room_subject_relations
+  has_many :subjects, :through => :room_subject_relations
 end

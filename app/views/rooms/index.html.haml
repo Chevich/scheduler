@@ -4,12 +4,15 @@
     %tr
       %th Номер
       %th Кабинет
+      %th
+      %th
     - @rooms.each do |f|
       %tr
         %td=f.number
         %td=f.name
         %td=link_to 'Изменить', edit_room_path(f)
-        %td=link_to 'Удалить', f, :method => :delete, :confirm => "Вы уверены?"
+        %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}
+        %td=link_to 'Предметы', room_subject_relations_path(:params => {:rooms_id => f.id })
 - else
   .empty Пустой список
 

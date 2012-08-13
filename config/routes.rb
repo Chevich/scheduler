@@ -1,13 +1,15 @@
 Scheduler::Application.routes.draw do
 
   resources :klasses
-
   resources :subjects
-
   resources :teachers
-
   resources :rooms
-
+  resources :room_subject_relations do
+    collection do
+      post 'add_all'
+      post 'delete_all'
+    end
+  end
   root :to => 'page#index'
   devise_for :users
 
