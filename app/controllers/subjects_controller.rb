@@ -1,23 +1,24 @@
 class SubjectsController < ApplicationController
   def index
-    @subjects = Subject.all
+    @subjects = current_user.subjects.all
   end
 
   def new
-    @subject = Subject.new
+    @subject = current_user.subjects.new
   end
 
   def create
-    @subject = Subject.new
+    @subject = current_user.subjects.new
     @subject.name = params[:subject][:name]
     @subject.level = params[:subject][:level]
     @subject.hours_per_week = params[:subject][:hours_per_week]
+    @subject.user = current_user
     @subject.save!
     redirect_to subjects_path()
   end
 
   def edit
-    @subject = Subject.find(params[:id])
+    @subject = current_user.subjects.find(params[:id])
     render 'new'
   end
 
@@ -27,7 +28,7 @@ class SubjectsController < ApplicationController
 
 
   def update
-    @subject = Subject.find(params[:id])
+    @subject = current_user.subjects.find(params[:id])
     @subject.name = params[:subject][:name]
     @subject.level = params[:subject][:level]
     @subject.hours_per_week = params[:subject][:hours_per_week]
@@ -36,7 +37,7 @@ class SubjectsController < ApplicationController
   end
 
   def destroy
-    Subject.find(params[:id]).delete
+    current_user.subjects.find(params[:id]).delete
     redirect_to subjects_path()
   end
 

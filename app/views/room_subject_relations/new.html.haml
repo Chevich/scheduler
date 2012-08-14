@@ -1,4 +1,3 @@
-=puts @room_subject_relations.inspect
 =form_for @room_subject_relations do |f|
   .box
     =f.label :room, 'Кабинет'
@@ -6,7 +5,7 @@
     =f.hidden_field :room_id
   .box
     =f.label :subject, 'Предмет'
-    =f.select :subject, Subject.all.map{|u|[u.name, u.id]}
+    =f.select :subject, current_user.subjects.all.map{|u|[u.name, u.id]}
   .box
-    =submit_tag 'Сохранить', :params => {room_id: @room_subject_relations.room.id}
-    =link_to 'Назад', room_subject_relations_path(:params => {room_id: @room_subject_relations.room.id})
+    =submit_tag 'Сохранить', :params => {rooms_id: @room_subject_relations.room.id}
+    =link_to 'Назад', room_subject_relations_path(:params => {rooms_id: @room_subject_relations.room.id})

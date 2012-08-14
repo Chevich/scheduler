@@ -4,13 +4,14 @@ class RoomsController < ApplicationController
   end
 
   def new
-    @room = Room.new
+    @room = current_user.rooms.new
   end
 
   def create
-    @room = Room.new
+    @room = current_user.rooms.new
     @room.name = params[:room][:name]
     @room.number = params[:room][:number]
+    @room.user = current_user
     @room.save!
     redirect_to rooms_path()
   end
@@ -20,12 +21,12 @@ class RoomsController < ApplicationController
   end
 
   def edit
-    @room = Room.find(params[:id])
+    @room = current_user.rooms.find(params[:id])
     render 'new'
   end
 
   def update
-    @room = Room.find(params[:id])
+    @room = current_user.rooms.find(params[:id])
     @room.name = params[:room][:name]
     @room.number = params[:room][:number]
     @room.save!
@@ -33,7 +34,7 @@ class RoomsController < ApplicationController
   end
 
   def destroy
-    Room.find(params[:id]).delete
+    current_user.rooms.find(params[:id]).delete
     redirect_to rooms_path()
   end
 

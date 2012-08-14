@@ -1,21 +1,22 @@
 class TeachersController < ApplicationController
   def index
-    @teachers = Teacher.all
+    @teachers = current_user.teachers.all
   end
 
   def new
-    @teacher = Teacher.new
+    @teacher = current_user.teachers.new
   end
 
   def create
-    @teacher = Teacher.new
+    @teacher = current_user.teachers.new
     @teacher.fio = params[:teacher][:fio]
+    @teacher.user = current_user
     @teacher.save!
     redirect_to teachers_path()
   end
 
   def edit
-    @teacher = Teacher.find(params[:id])
+    @teacher = current_user.teachers.find(params[:id])
     render 'new'
   end
 
@@ -24,14 +25,14 @@ class TeachersController < ApplicationController
   end
 
   def update
-    @teacher = Teacher.find(params[:id])
+    @teacher = current_user.teachers.find(params[:id])
     @teacher.fio = params[:teacher][:fio]
     @teacher.save!
     redirect_to teachers_path()
   end
 
   def destroy
-    Teacher.find(params[:id]).delete
+    current_user.teachers.find(params[:id]).delete
     redirect_to teachers_path()
   end
 end

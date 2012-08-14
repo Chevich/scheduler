@@ -1,0 +1,14 @@
+=form_for @klass_subject_relations do |f|
+  .box
+    =f.label :klass, 'Кабинет'
+    =f.label :klass, @klass_subject_relations.klass.name
+    =f.hidden_field :klass_id
+  .box
+    =f.label :subject, 'Предмет'
+    =f.select :subject, current_user.subjects.all.map{|u|[u.name, u.id]}
+  .box
+    =f.label :hours_per_week, 'Часов в неделю'
+    =f.text_field :hours_per_week
+  .box
+    =submit_tag 'Сохранить', :params => {klasses_id: @klass_subject_relations.klass.id}
+    =link_to 'Назад', klass_subject_relations_path(:params => {klasses_id: @klass_subject_relations.klass.id})

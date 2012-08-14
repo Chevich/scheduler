@@ -1,0 +1,11 @@
+=form_for @teacher_room_relations do |f|
+  .box
+    =f.label :teacher, 'Учитель'
+    =f.label :teacher, @teacher_room_relations.teacher.fio
+    =f.hidden_field :teacher_id
+  .box
+    =f.label :room, 'Кабинет'
+    =f.select :room, current_user.rooms.all.map{|u|["#{u.name}(#{u.number})", u.id]}
+  .box
+    =submit_tag 'Сохранить', :params => {teachers_id: @teacher_room_relations.teacher.id}
+    =link_to 'Назад', teacher_room_relations_path(:params => {teachers_id: @teacher_room_relations.teacher.id})

@@ -1,0 +1,17 @@
+%h1= "Учитель '#{@teacher.fio unless @teacher.nil?}'"
+- unless @teacher_subject_relations.empty?
+  %table
+    %tr
+      %th Предмет
+      %th
+      %th
+    - @teacher_subject_relations.each do |f|
+      %tr
+        %td=f.subject.name
+        %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}, :params => {teachers_id: @teacher.id}
+  = link_to 'Удалить все предметы', delete_all_teacher_subject_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post
+- else
+  .empty Пустой список
+  = link_to 'Добавить все предметы', add_all_teacher_subject_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post
+
+= link_to 'Новый предмет', new_teacher_subject_relation_path(:params => {teachers_id: @teacher.id})

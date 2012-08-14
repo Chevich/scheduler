@@ -1,8 +1,8 @@
 class RoomSubjectRelations < ActiveRecord::Migration
   def change
     create_table :room_subject_relations do |t|
-      t.integer :room_id
-      t.integer :subject_id
+      t.integer :room_id, :null => false
+      t.integer :subject_id, :null => false
     end
     add_index :room_subject_relations, [:room_id,:subject_id], :unique => true
     add_index :room_subject_relations, :room_id

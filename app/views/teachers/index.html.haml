@@ -3,11 +3,17 @@
   %table
     %tr
       %th Фамилия И.О.
+      %th
+      %th
+      %th
+      %th
     - @teachers.each do |f|
       %tr
         %td=f.fio
         %td=link_to 'Изменить', edit_teacher_path(f)
         %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}
+        %td=link_to 'Предметы', teacher_subject_relations_path(:params => {:teachers_id => f.id })
+        %td=link_to 'Кабинеты', teacher_room_relations_path(:params => {:teachers_id => f.id })
 - else
   .empty Пустой список
 

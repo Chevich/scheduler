@@ -1,22 +1,23 @@
 class KlassesController < ApplicationController
   def index
-    @klasses = Klass.all
+    @klasses = current_user.klasses.all
   end
 
   def new
-    @klass = Klass.new
+    @klass = current_user.klasses.new
   end
 
   def create
-    @klass = Klass.new
+    @klass = current_user.klasses.new
     @klass.name = params[:klass][:name]
     @klass.level = params[:klass][:level]
+    @klass.user = current_user
     @klass.save!
     redirect_to klasses_path()
   end
 
   def edit
-    @klass = Klass.find(params[:id])
+    @klass = current_user.klasses.find(params[:id])
     render 'new'
   end
 
@@ -26,7 +27,7 @@ class KlassesController < ApplicationController
 
 
   def update
-    @klass = Klass.find(params[:id])
+    @klass = current_user.klasses.find(params[:id])
     @klass.name = params[:klass][:name]
     @klass.level = params[:klass][:level]
     @klass.save!

@@ -11,7 +11,7 @@ class RoomSubjectRelationsController < ApplicationController
 
   def add_all
     unless params[:rooms_id].nil?
-      room = Room.find(params[:rooms_id])
+      room = current_user.rooms.find(params[:rooms_id])
       room.subjects << Subject.all
       room.save!
       redirect_to room_subject_relations_path(:params => {rooms_id:room.id}) and return
@@ -21,7 +21,7 @@ class RoomSubjectRelationsController < ApplicationController
 
   def delete_all
     unless params[:rooms_id].nil?
-      room = Room.find(params[:rooms_id])
+      room = current_user.rooms.find(params[:rooms_id])
       room.subjects.clear
       room.save!
       redirect_to room_subject_relations_path(:params => {rooms_id:room.id}) and return
@@ -34,8 +34,7 @@ class RoomSubjectRelationsController < ApplicationController
     @room_subject_relations.room_id = params[:room_subject_relation][:room_id] unless params[:room_subject_relation][:room_id].nil?
     @room_subject_relations.subject_id = params[:room_subject_relation][:subject] unless params[:room_subject_relation][:subject].nil?
     @room_subject_relations.save!
-    puts '********** ' + @room_subject_relations.inspect
-    redirect_to room_subject_relations_path(:params => {rooms_id:params[:room_subject_relation][:room_id]}) and return
+    redirect_to room_subject_relations_path(:params => {rooms_id:params[:room_subject_relation][:room_id]})
   end
 
   def edit
