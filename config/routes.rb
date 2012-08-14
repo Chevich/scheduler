@@ -4,12 +4,6 @@ Scheduler::Application.routes.draw do
   resources :subjects
   resources :teachers
   resources :rooms
-  resources :room_subject_relations do
-    collection do
-      post 'add_all'
-      post 'delete_all'
-    end
-  end
   resources :teacher_subject_relations do
     collection do
       post 'add_all'

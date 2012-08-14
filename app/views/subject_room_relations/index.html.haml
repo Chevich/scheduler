@@ -1,0 +1,17 @@
+%h1= "Предмет '#{@subject.name unless @subject.nil?}'"
+- unless @subject_room_relations.empty?
+  %table
+    %tr
+      %th Кабинет
+      %th
+      %th
+    - @subject_room_relations.each do |f|
+      %tr
+        %td="#{f.room.name}(#{f.room.number})"
+        %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}, :params => {subjects_id: @subject.id}
+  = link_to 'Удалить все кабинеты', delete_all_subject_room_relations_path(:params => {subjects_id: @subject.id} ),:method => :post
+- else
+  .empty Пустой список
+  = link_to 'Добавить все кабинеты', add_all_subject_room_relations_path(:params => {subjects_id: @subject.id} ),:method => :post
+
+= link_to 'Новый кабинет', new_subject_room_relation_path(:params => {subjects_id: @subject.id})

@@ -5,6 +5,9 @@
       %th Название
       %th Класс
       %th Количество часов
+      %th
+      %th
+      %th
     - @subjects.each do |f|
       %tr
         %td=f.name
@@ -12,6 +15,7 @@
         %td=f.hours_per_week
         %td=link_to 'Изменить', edit_subject_path(f)
         %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}
+        %td=link_to 'Кабинеты', subject_room_relations_path(:params => {:subjects_id => f.id })
 - else
   .empty Пустой список
 

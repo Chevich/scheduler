@@ -33,15 +33,6 @@ ActiveRecord::Schema.define(:version => 20120814132410) do
 
   add_index "klasses", ["user_id", "name"], :name => "index_klasses_on_user_id_and_name", :unique => true
 
-  create_table "room_subject_relations", :force => true do |t|
-    t.integer "room_id",    :null => false
-    t.integer "subject_id", :null => false
-  end
-
-  add_index "room_subject_relations", ["room_id", "subject_id"], :name => "index_room_subject_relations_on_room_id_and_subject_id", :unique => true
-  add_index "room_subject_relations", ["room_id"], :name => "index_room_subject_relations_on_room_id"
-  add_index "room_subject_relations", ["subject_id"], :name => "index_room_subject_relations_on_subject_id"
-
   create_table "rooms", :force => true do |t|
     t.integer  "user_id",    :null => false
     t.string   "name",       :null => false

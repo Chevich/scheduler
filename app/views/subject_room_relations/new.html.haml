@@ -1,0 +1,11 @@
+=form_for @subject_room_relations do |f|
+  .box
+    =f.label :subject, 'Предмет'
+    =f.label :subject, @subject_room_relations.subject.name
+    =f.hidden_field :subject_id
+  .box
+    =f.label :room, 'Кабинет'
+    =f.select :room, current_user.rooms.all.map{|u|["#{u.name}(#{u.number})", u.id]}
+  .box
+    =submit_tag 'Сохранить', :params => {subjects_id: @subject_room_relations.subject.id}
+    =link_to 'Назад', subject_room_relations_path(:params => {subjects_id: @subject_room_relations.subject.id})
