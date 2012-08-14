@@ -7,5 +7,8 @@ class Teacher < ActiveRecord::Base
   has_many :teacher_room_relations
   has_many :rooms, :through => :teacher_room_relations
 
+  has_many :teacher_klass_subject_relations
+  has_many :klasses, :through => :teacher_klass_subject_relations
+
   attr_accessible :user, :fio
 end

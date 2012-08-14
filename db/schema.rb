@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120814132410) do
+ActiveRecord::Schema.define(:version => 20120814144653) do
 
   create_table "klass_subject_relations", :force => true do |t|
     t.integer "klass_id",       :null => false
@@ -62,6 +62,16 @@ ActiveRecord::Schema.define(:version => 20120814132410) do
   end
 
   add_index "subjects", ["user_id", "name", "level"], :name => "index_subjects_on_user_id_and_name_and_level", :unique => true
+
+  create_table "teacher_klass_subject_relations", :force => true do |t|
+    t.integer "teacher_id", :null => false
+    t.integer "klass_id",   :null => false
+    t.integer "subject_id", :null => false
+  end
+
+  add_index "teacher_klass_subject_relations", ["klass_id"], :name => "index_teacher_klass_subject_relations_on_klass_id"
+  add_index "teacher_klass_subject_relations", ["teacher_id", "klass_id", "subject_id"], :name => "by_klass", :unique => true
+  add_index "teacher_klass_subject_relations", ["teacher_id"], :name => "index_teacher_klass_subject_relations_on_teacher_id"
 
   create_table "teacher_room_relations", :force => true do |t|
     t.integer "teacher_id", :null => false
