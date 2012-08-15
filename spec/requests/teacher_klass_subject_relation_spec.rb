@@ -21,15 +21,19 @@ describe "Связь классов и учителей (предметы!)", :t
   end
 
   it "свяжем все предметы с учителем" do
-    pending
-    #Fabricate(:klass, :name => 'Физкультура')
-    #Fabricate(:klass, :name => 'Пение')
-    #visit('/')
-    #click_on('Учителя')
-    #click_on('Предметы')
-    #click_on('Добавить все предметы')
-    #page.should have_content('Физкультура')
-    #page.should have_content('Пение')
+    subj1 = Fabricate(:subject, :name => 'Физкультура')
+    subj2 = Fabricate(:subject, :name => 'Пение')
+    Fabricate(:teacher_subject_relation, subject: subj1)
+    Fabricate(:teacher_subject_relation, subject: subj2)
+    klass = Fabricate(:klass, {name:'2а', level:2})
+    Fabricate(:klass_subject_relation, {klass:klass, subject: subj1})
+    Fabricate(:klass_subject_relation, {klass:klass, subject: subj2})
+    visit('/')
+    click_on('Учителя')
+    click_on('Классы')
+    click_on('Добавить все классы')
+    page.should have_content('Физкультура')
+    page.should have_content('Пение')
   end
 
   it "свяжем один класс с учителем" do
@@ -47,15 +51,17 @@ describe "Связь классов и учителей (предметы!)", :t
   end
 
   it "удалим все классы у учителя" do
-    pending
-    #Fabricate(:klass, :name => 'Физкультура')
-    #Fabricate(:klass, :name => 'Пение')
-    #visit('/')
-    #click_on('Учителя')
-    #click_on('Предметы')
-    #click_on('Добавить все предметы')
-    #click_on('Удалить все предметы')
-    #page.should have_content('Пустой список')
+    Fabricate(:klass, :name => '7а')
+    Fabricate(:subject, :name => 'Математика')
+    visit('/')
+    click_on('Учителя')
+    click_on('Классы')
+    click_on('Новый класс')
+    select '7а', :from => 'Класс'
+    select 'Математика', :from => 'Предмет'
+    click_on('Сохранить')
+    click_on('Удалить все классы')
+    page.should have_content('Пустой список')
   end
 
   it "откажемся от ввода предмета" do

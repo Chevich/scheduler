@@ -1,0 +1,14 @@
+=form_for @teacher_klass_subject_relations do |f|
+  .box
+    =f.label :teacher, 'Учитель'
+    =f.label :teacher, @teacher_klass_subject_relations.teacher.fio
+    =f.hidden_field :teacher_id
+  .box
+    =f.label :klass, 'Класс'
+    =f.select :klass, current_user.klasses.all.map{|u|[u.name, u.id]}
+  .box
+    =f.label :subject, 'Предмет'
+    =f.select :subject, current_user.subjects.all.map{|u|[u.name, u.id]}
+  .box
+    =submit_tag 'Сохранить', :params => {teachers_id: @teacher_klass_subject_relations.teacher.id}
+    =link_to 'Назад', teacher_klass_subject_relations_path(:params => {teachers_id: @teacher_klass_subject_relations.teacher.id})

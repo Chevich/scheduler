@@ -2,62 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ae1e014-8bb8-4b83-94c0-317807b17c04" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/klass_subject_relations_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/teacher_room_relations_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/controllers/teacher_subject_relations_controller.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/klass_subject_relation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/subject_room_relation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/teacher_room_relation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/models/teacher_subject_relation.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/klass_subject_relations/index.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/klass_subject_relations/new.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/subject_room_relations/index.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/subject_room_relations/new.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/teacher_room_relations/index.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/teacher_room_relations/new.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/teacher_subject_relations/index.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/views/teacher_subject_relations/new.html.haml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20120814081007_teacher_subject_relations.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20120814085259_teacher_room_relations.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20120814092053_klass_subject_relations.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/db/migrate/20120814132410_subject_room_relations.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/controllers/klass_subject_relations_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/requests/klass_subject_relation_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/requests/subject_room_relation_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/requests/teacher_room_relation_spec.rb" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/requests/teacher_subject_relation_spec.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/fabricators/klass_subject_relation_fabricate.rb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spec/fabricators/teacher_subject_relation_fabricate.rb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/andy.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/andy.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/klasses_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/klasses_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/room_subject_relations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/room_subject_relations_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/rooms_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/rooms_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/subjects_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/subjects_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/teachers_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/teachers_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/klass.rb" afterPath="$PROJECT_DIR$/app/models/klass.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/room.rb" afterPath="$PROJECT_DIR$/app/models/room.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/subject.rb" afterPath="$PROJECT_DIR$/app/models/subject.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/teacher.rb" afterPath="$PROJECT_DIR$/app/models/teacher.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/user.rb" afterPath="$PROJECT_DIR$/app/models/user.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/klasses/index.html.haml" afterPath="$PROJECT_DIR$/app/views/klasses/index.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/page/index.html.haml" afterPath="$PROJECT_DIR$/app/views/page/index.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/room_subject_relations/new.html.haml" afterPath="$PROJECT_DIR$/app/views/room_subject_relations/new.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/rooms/index.html.haml" afterPath="$PROJECT_DIR$/app/views/rooms/index.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/teachers/index.html.haml" afterPath="$PROJECT_DIR$/app/views/teachers/index.html.haml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/routes.rb" afterPath="$PROJECT_DIR$/config/routes.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20120810111833_create_rooms.rb" afterPath="$PROJECT_DIR$/db/migrate/20120810111833_create_rooms.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20120810123838_create_teachers.rb" afterPath="$PROJECT_DIR$/db/migrate/20120810123838_create_teachers.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20120810124913_create_subjects.rb" afterPath="$PROJECT_DIR$/db/migrate/20120810124913_create_subjects.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20120810130334_create_klasses.rb" afterPath="$PROJECT_DIR$/db/migrate/20120810130334_create_klasses.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20120813091030_room_subject_relations.rb" afterPath="$PROJECT_DIR$/db/migrate/20120813091030_room_subject_relations.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/seeds.rb" afterPath="$PROJECT_DIR$/db/seeds.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/fabricators/klass_fabricate.rb" afterPath="$PROJECT_DIR$/spec/fabricators/klass_fabricate.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/fabricators/room_fabricate.rb" afterPath="$PROJECT_DIR$/spec/fabricators/room_fabricate.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/fabricators/subject_fabricate.rb" afterPath="$PROJECT_DIR$/spec/fabricators/subject_fabricate.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/fabricators/teacher_fabricate.rb" afterPath="$PROJECT_DIR$/spec/fabricators/teacher_fabricate.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/requests/login_spec.rb" afterPath="$PROJECT_DIR$/spec/requests/login_spec.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/requests/room_subject_relation_spec.rb" afterPath="$PROJECT_DIR$/spec/requests/room_subject_relation_spec.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/subject_room_relations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/subject_room_relations_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/teacher_klass_subject_relations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/teacher_klass_subject_relations_controller.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/teacher_klass_subject_relation.rb" afterPath="$PROJECT_DIR$/app/models/teacher_klass_subject_relation.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/teacher_klass_subject_relations/index.html.haml" afterPath="$PROJECT_DIR$/app/views/teacher_klass_subject_relations/index.html.haml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/teacher_klass_subject_relations/new.html.haml" afterPath="$PROJECT_DIR$/app/views/teacher_klass_subject_relations/new.html.haml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20120814144653_teacher_klass_subject_relations.rb" afterPath="$PROJECT_DIR$/db/migrate/20120814144653_teacher_klass_subject_relations.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spec/requests/teacher_klass_subject_relation_spec.rb" afterPath="$PROJECT_DIR$/spec/requests/teacher_klass_subject_relation_spec.rb" />
     </list>
     <ignored path="scheduler.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,98 +24,98 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
-    <option name="PATCH_PATH" value="" />
+    <option name="PATCH_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="DaemonCodeAnalyzer">
     <disable_hints />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="subject_room_relation_spec.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/spec/requests/subject_room_relation_spec.rb">
+      <file leaf-file-name="new.html.haml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/teacher_klass_subject_relations/new.html.haml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="61" selection-start="485" selection-end="485" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="20120814085259_teacher_room_relations.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/migrate/20120814085259_teacher_room_relations.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="33" selection-start="0" selection-end="395" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="20120814132410_subject_room_relations.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/migrate/20120814132410_subject_room_relations.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="11" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/routes.rb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="20" selection-start="611" selection-end="611" vertical-scroll-proportion="0.0">
+            <state line="12" column="62" selection-start="478" selection-end="478" vertical-scroll-proportion="-7.8461537">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="index.html.haml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/subject_room_relations/index.html.haml">
+        <entry file="file://$PROJECT_DIR$/app/views/teacher_klass_subject_relations/index.html.haml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="16" column="49" selection-start="632" selection-end="632" vertical-scroll-proportion="-10.461538">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="new.html.haml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/subject_room_relations/new.html.haml">
+      <file leaf-file-name="teacher_klass_subject_relation_spec.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spec/requests/teacher_klass_subject_relation_spec.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.0">
+            <state line="28" column="68" selection-start="883" selection-end="883" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="subject_room_relation.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/subject_room_relation.rb">
+      <file leaf-file-name="klass_subject_relation_fabricate.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spec/fabricators/klass_subject_relation_fabricate.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="18" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+            <state line="6" column="145" selection-start="170" selection-end="170" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="room.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/room.rb">
+      <file leaf-file-name="teacher_subject_relation_fabricate.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spec/fabricators/teacher_subject_relation_fabricate.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="57" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0">
+            <state line="5" column="30" selection-start="0" selection-end="158" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="subject.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/models/subject.rb">
+      <file leaf-file-name="teacher_fabricate.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spec/fabricators/teacher_fabricate.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="20" selection-start="145" selection-end="145" vertical-scroll-proportion="0.14382403">
+            <state line="5" column="19" selection-start="0" selection-end="103" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="teacher_room_relation.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/teacher_room_relation.rb">
+      <file leaf-file-name="teacher_klass_subject_relations_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/teacher_klass_subject_relations_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="32" selection-start="0" selection-end="92" vertical-scroll-proportion="0.0">
+            <state line="56" column="42" selection-start="2379" selection-end="2379" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.375">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="subject_room_relations_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/subject_room_relations_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="41" selection-start="587" selection-end="587" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="klass_subject_relations_controller.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/controllers/klass_subject_relations_controller.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -182,22 +137,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/app/views/teacher_subject_relations/new.html.haml" />
-        <option value="$PROJECT_DIR$/spec/controllers/klass_subject_relations_spec.rb" />
-        <option value="$PROJECT_DIR$/app/views/klass_subject_relations/index.html.haml" />
-        <option value="$PROJECT_DIR$/app/views/klass_subject_relations/new.html.haml" />
-        <option value="$PROJECT_DIR$/db/migrate/20120813091030_room_subject_relations.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20120814081007_teacher_subject_relations.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20120814085259_teacher_room_relations.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20120814092053_klass_subject_relations.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/klass_subject_relations_controller.rb" />
-        <option value="$PROJECT_DIR$/spec/requests/klass_subject_relation_spec.rb" />
-        <option value="$PROJECT_DIR$/spec/requests/subject_room_relation_spec.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20120814132410_subject_room_relations.rb" />
-        <option value="$PROJECT_DIR$/config/routes.rb" />
-        <option value="$PROJECT_DIR$/app/models/subject_room_relation.rb" />
-        <option value="$PROJECT_DIR$/app/models/subject.rb" />
         <option value="$PROJECT_DIR$/app/models/room.rb" />
+        <option value="$PROJECT_DIR$/config/routes.rb" />
+        <option value="$PROJECT_DIR$/app/models/teacher.rb" />
+        <option value="$PROJECT_DIR$/app/models/klass.rb" />
+        <option value="$PROJECT_DIR$/app/views/teachers/index.html.haml" />
+        <option value="$PROJECT_DIR$/app/views/subject_room_relations/index.html.haml" />
+        <option value="$PROJECT_DIR$/app/views/teacher_klass_subject_relations/index.html.haml" />
+        <option value="$PROJECT_DIR$/app/models/teacher_klass_subject_relation.rb" />
+        <option value="$PROJECT_DIR$/app/views/teacher_klass_subject_relations/new.html.haml" />
+        <option value="$PROJECT_DIR$/db/migrate/20120814144653_teacher_klass_subject_relations.rb" />
+        <option value="$PROJECT_DIR$/spec/fabricators/teacher_subject_relation_fabricate.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/subject_room_relations_controller.rb" />
+        <option value="$PROJECT_DIR$/spec/fabricators/klass_subject_relation_fabricate.rb" />
+        <option value="$PROJECT_DIR$/spec/requests/teacher_klass_subject_relation_spec.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/teacher_klass_subject_relations_controller.rb" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -214,7 +169,7 @@
     <OptionsSetting value="true" id="Update" />
     <OptionsSetting value="true" id="Status" />
     <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="2" id="Add" />
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
@@ -233,8 +188,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="RailsProjectView" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -282,6 +235,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="requests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spec" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="fabricators" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -348,6 +319,72 @@
               <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="teachers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="teacher_subject_relations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scheduler" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="teacher_klass_subject_relations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -368,28 +405,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="subject_room_relations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scheduler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scheduler" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="klass_subject_relations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -445,6 +460,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="RailsProjectView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -749,20 +766,23 @@
       <created>1344868894512</created>
       <updated>1344868894512</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="14.08.2012 Part 3">
+      <created>1344957449717</created>
+      <updated>1344957449717</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="1280" y="24" width="1920" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32845187" sideWeight="0.49786097" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.49786097" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32845187" sideWeight="0.49786097" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3294979" sideWeight="0.49786097" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29679143" sideWeight="0.6715481" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30427808" sideWeight="0.67050207" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.4983957" order="7" side_tool="true" content_ui="tabs" />
@@ -771,6 +791,7 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294979" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -811,7 +832,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="14.08.2012" />
+    <option name="LAST_COMMIT_MESSAGE" value="15.08.2012" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -826,119 +847,121 @@
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="13.08.2012" />
     <MESSAGE value="14.08.2012" />
+    <MESSAGE value="14.08.2012 Part 3" />
+    <MESSAGE value="15.08.2012" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-1.9.3-p194@global/gems/capybara-1.1.2/lib/capybara/node/actions.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/teacher_subject_relations/index.html.haml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="10" selection-start="1600" selection-end="1600" vertical-scroll-proportion="0.3329453">
+        <state line="12" column="31" selection-start="0" selection-end="759" vertical-scroll-proportion="-7.8461537">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/klass_subject_relations/new.html.haml">
+    <entry file="file://$PROJECT_DIR$/app/models/teacher_klass_subject_relation.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="49" selection-start="574" selection-end="574" vertical-scroll-proportion="-9.153846">
+        <state line="5" column="25" selection-start="123" selection-end="123" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20120814144653_teacher_klass_subject_relations.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="63" selection-start="521" selection-end="521" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/migrate/20120814081007_teacher_subject_relations.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/fabricators/teacher_fabricate.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="19" selection-start="0" selection-end="103" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/teacher_klass_subject_relations/new.html.haml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="62" selection-start="478" selection-end="478" vertical-scroll-proportion="-7.8461537">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/teacher_klass_subject_relations/index.html.haml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="49" selection-start="632" selection-end="632" vertical-scroll-proportion="-10.461538">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/subject_room_relations_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="41" selection-start="587" selection-end="587" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/klass_subject_relations_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="41" column="149" selection-start="1787" selection-end="1787" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20120814092053_klass_subject_relations.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="43" selection-start="451" selection-end="451" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spec/requests/klass_subject_relation_spec.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="72" selection-start="915" selection-end="915" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spec/requests/teacher_room_relation_spec.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="52" selection-start="0" selection-end="1756" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spec/requests/subject_room_relation_spec.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="61" selection-start="485" selection-end="485" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20120814085259_teacher_room_relations.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="33" selection-start="0" selection-end="395" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20120814132410_subject_room_relations.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="11" selection-start="395" selection-end="395" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="20" selection-start="611" selection-end="611" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/subject_room_relations/index.html.haml">
+    <entry file="file://$PROJECT_DIR$/spec/fabricators/klass_fabricate.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/subject_room_relations/new.html.haml">
+    <entry file="file://$PROJECT_DIR$/spec/fabricators/teacher_subject_relation_fabricate.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="5" column="30" selection-start="0" selection-end="158" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/teacher_room_relation.rb">
+    <entry file="file://$PROJECT_DIR$/db/schema.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="32" selection-start="0" selection-end="92" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.17606445">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/subject_room_relation.rb">
+    <entry file="file://$PROJECT_DIR$/spec/fabricators/klass_subject_relation_fabricate.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="18" selection-start="92" selection-end="92" vertical-scroll-proportion="0.0">
+        <state line="6" column="145" selection-start="170" selection-end="170" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/room.rb">
+    <entry file="file://$PROJECT_DIR$/spec/requests/teacher_klass_subject_relation_spec.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="57" selection-start="238" selection-end="238" vertical-scroll-proportion="0.0">
+        <state line="28" column="68" selection-start="883" selection-end="883" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/subject.rb">
+    <entry file="file://$PROJECT_DIR$/app/controllers/teacher_klass_subject_relations_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="20" selection-start="145" selection-end="145" vertical-scroll-proportion="0.14382403">
+        <state line="56" column="42" selection-start="2379" selection-end="2379" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="0" selection-start="377" selection-end="377" vertical-scroll-proportion="0.375">
           <folding />
         </state>
       </provider>

@@ -12,7 +12,7 @@ class SubjectRoomRelationsController < ApplicationController
   def add_all
     unless params[:subjects_id].nil?
       subject = current_user.subjects.find(params[:subjects_id])
-      subject.rooms << Room.all
+      subject.rooms << current_user.rooms.all
       subject.save!
       redirect_to subject_room_relations_path(:params => {subjects_id:subject.id}) and return
     end
