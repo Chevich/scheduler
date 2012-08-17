@@ -34,6 +34,11 @@ Scheduler::Application.routes.draw do
       post 'delete_all'
     end
   end
+  resources :timetables do
+    collection do
+      post 'recalculate'
+    end
+  end
   root :to => 'page#index'
   devise_for :users
 
