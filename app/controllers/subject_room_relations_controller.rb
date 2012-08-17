@@ -33,8 +33,12 @@ class SubjectRoomRelationsController < ApplicationController
     @subject_room_relations = SubjectRoomRelation.new
     @subject_room_relations.subject_id = params[:subject_room_relation][:subject_id] unless params[:subject_room_relation][:subject_id].nil?
     @subject_room_relations.room_id = params[:subject_room_relation][:room] unless params[:subject_room_relation][:room].nil?
-    @subject_room_relations.save!
-    redirect_to subject_room_relations_path(:params => {subjects_id:params[:subject_room_relation][:subject_id]})
+    if @subject_room_relations.save
+      redirect_to subject_room_relations_path(:params => {subjects_id:params[:subject_room_relation][:subject_id]})
+    else
+      flash[:error] = @subject_room_relations.errors.full_messages
+      redirect_to new_subject_room_relation_path(subjects_id:params[:subject_room_relation][:subject_id])
+    end
   end
 
   def edit
@@ -47,7 +51,6 @@ class SubjectRoomRelationsController < ApplicationController
   end
 
   def destroy
-
     subj = SubjectRoomRelation.find(params[:id])
     subject = subj.subject
     subj.delete

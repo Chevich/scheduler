@@ -46,8 +46,12 @@ class TeacherKlassSubjectRelationsController < ApplicationController
     @teacher_klass_subject_relations.teacher_id = params[:teacher_klass_subject_relation][:teacher_id] unless params[:teacher_klass_subject_relation][:teacher_id].nil?
     @teacher_klass_subject_relations.klass_id = params[:teacher_klass_subject_relation][:klass] unless params[:teacher_klass_subject_relation][:klass].nil?
     @teacher_klass_subject_relations.subject_id = params[:teacher_klass_subject_relation][:subject] unless params[:teacher_klass_subject_relation][:subject].nil?
-    @teacher_klass_subject_relations.save!
-    redirect_to teacher_klass_subject_relations_path(:params => {teachers_id:params[:teacher_klass_subject_relation][:teacher_id]})
+    if @teacher_klass_subject_relations.save
+      redirect_to teacher_klass_subject_relations_path(:params => {teachers_id:params[:teacher_klass_subject_relation][:teacher_id]})
+    else
+      flash[:error] = @teacher_klass_subject_relations.errors.full_messages
+      redirect_to new_teacher_klass_subject_relation_path(teachers_id:params[:teacher_klass_subject_relation][:teacher_id])
+    end
   end
 
   def edit

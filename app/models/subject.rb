@@ -11,4 +11,10 @@ class Subject < ActiveRecord::Base
   has_many :klasses, :through => :klass_subject_relations
 
   attr_accessible :user, :name, :level, :hours_per_week
+
+  validates :user, :presence => true
+  validates :name, :presence => true, :length   => { :maximum => 100 }
+  validates :level, :presence => true, :inclusion => { :in => 0..9 }
+  validates :hours_per_week, :presence => true, :inclusion => { :in => 1..80 }
+
 end

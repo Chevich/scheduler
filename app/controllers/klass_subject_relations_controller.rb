@@ -1,5 +1,7 @@
+#coding: utf-8
 class KlassSubjectRelationsController < ApplicationController
   def index
+    add_breadcrumb "klass_subject", :klass_subject_relations_path
     @klass = Klass.find(params[:klasses_id]) unless params[:klasses_id].nil?
     @klass_subject_relations = KlassSubjectRelation.where("klass_id = ?", @klass.id)
   end
@@ -40,8 +42,12 @@ class KlassSubjectRelationsController < ApplicationController
     @klass_subject_relations.klass_id = params[:klass_subject_relation][:klass_id] unless params[:klass_subject_relation][:klass_id].nil?
     @klass_subject_relations.subject_id = params[:klass_subject_relation][:subject] unless params[:klass_subject_relation][:subject].nil?
     @klass_subject_relations.hours_per_week = params[:klass_subject_relation][:hours_per_week] unless params[:klass_subject_relation][:hours_per_week].nil?
-    @klass_subject_relations.save!
-    redirect_to klass_subject_relations_path(:params => {klasses_id:params[:klass_subject_relation][:klass_id]})
+    if @klass_subject_relations.save
+      redirect_to klass_subject_relations_path(:params => {klasses_id:params[:klass_subject_relation][:klass_id]})
+    else
+      flash[:error] = @klass_subject_relations.errors.full_messages
+      redirect_to new_klass_subject_relation_path(klasses_id:params[:klass_subject_relation][:klass_id])
+    end
   end
 
   def edit

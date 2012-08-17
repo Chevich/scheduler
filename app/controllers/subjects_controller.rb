@@ -1,3 +1,4 @@
+#coding: utf-8
 class SubjectsController < ApplicationController
   def index
     @subjects = current_user.subjects.all
@@ -13,8 +14,13 @@ class SubjectsController < ApplicationController
     @subject.level = params[:subject][:level]
     @subject.hours_per_week = params[:subject][:hours_per_week]
     @subject.user = current_user
-    @subject.save!
-    redirect_to subjects_path()
+    if @subject.save
+      flash[:success] = "Предмет изменен."
+      redirect_to subjects_path()
+    else
+      flash[:error] = @subject.errors.full_messages
+      render 'new'
+    end
   end
 
   def edit
@@ -32,8 +38,13 @@ class SubjectsController < ApplicationController
     @subject.name = params[:subject][:name]
     @subject.level = params[:subject][:level]
     @subject.hours_per_week = params[:subject][:hours_per_week]
-    @subject.save!
-    redirect_to subjects_path()
+    if @subject.save
+      flash[:success] = "Предмет изменен."
+      redirect_to subjects_path()
+    else
+      flash[:error] = @subject.errors.full_messages
+      render 'new'
+    end
   end
 
   def destroy

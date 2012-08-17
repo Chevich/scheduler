@@ -1,3 +1,4 @@
+#coding: utf-8
 class TeachersController < ApplicationController
   def index
     @teachers = current_user.teachers.all
@@ -11,8 +12,13 @@ class TeachersController < ApplicationController
     @teacher = current_user.teachers.new
     @teacher.fio = params[:teacher][:fio]
     @teacher.user = current_user
-    @teacher.save!
-    redirect_to teachers_path()
+    if @teacher.save
+      flash[:success] = "Учитель изменен."
+      redirect_to teachers_path()
+    else
+      flash[:error] = @teacher.errors.full_messages
+      render 'new'
+    end
   end
 
   def edit
@@ -27,8 +33,13 @@ class TeachersController < ApplicationController
   def update
     @teacher = current_user.teachers.find(params[:id])
     @teacher.fio = params[:teacher][:fio]
-    @teacher.save!
-    redirect_to teachers_path()
+    if @teacher.save
+      flash[:success] = "Учитель изменен."
+      redirect_to teachers_path()
+    else
+      flash[:error] = @teacher.errors.full_messages
+      render 'new'
+    end
   end
 
   def destroy

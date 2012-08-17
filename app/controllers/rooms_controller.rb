@@ -1,3 +1,4 @@
+#coding: utf-8
 class RoomsController < ApplicationController
   def index
     @rooms = Room.all
@@ -12,8 +13,13 @@ class RoomsController < ApplicationController
     @room.name = params[:room][:name]
     @room.number = params[:room][:number]
     @room.user = current_user
-    @room.save!
-    redirect_to rooms_path()
+    if @room.save
+      flash[:success] = "Кабинет изменен."
+      redirect_to rooms_path()
+    else
+      flash[:error] = @room.errors.full_messages
+      render 'new'
+    end
   end
 
   def show
@@ -29,8 +35,13 @@ class RoomsController < ApplicationController
     @room = current_user.rooms.find(params[:id])
     @room.name = params[:room][:name]
     @room.number = params[:room][:number]
-    @room.save!
-    redirect_to rooms_path()
+    if @room.save
+      flash[:success] = "Кабинет изменен."
+      redirect_to rooms_path()
+    else
+      flash[:error] = @room.errors.full_messages
+      render 'new'
+    end
   end
 
   def destroy

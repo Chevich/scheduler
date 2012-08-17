@@ -10,4 +10,8 @@ class Room < ActiveRecord::Base
 
   attr_accessible :user, :name, :number
 
+  validates :user, :presence => true
+  validates :name, :presence => true, :length   => { :maximum => 100 }
+  validates :number, :presence => true, :length   => { :maximum => 10 }
+
 end

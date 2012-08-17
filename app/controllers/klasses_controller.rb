@@ -1,5 +1,7 @@
+#coding: utf-8
 class KlassesController < ApplicationController
   def index
+    add_breadcrumb "klass", klasses_path()
     @klasses = current_user.klasses.all
   end
 
@@ -12,8 +14,13 @@ class KlassesController < ApplicationController
     @klass.name = params[:klass][:name]
     @klass.level = params[:klass][:level]
     @klass.user = current_user
-    @klass.save!
-    redirect_to klasses_path()
+    if @klass.save
+      flash[:success] = "Класс изменен."
+      redirect_to klasses_path()
+    else
+      flash[:error] = @klass.errors.full_messages
+      render 'new'
+    end
   end
 
   def edit
@@ -30,8 +37,13 @@ class KlassesController < ApplicationController
     @klass = current_user.klasses.find(params[:id])
     @klass.name = params[:klass][:name]
     @klass.level = params[:klass][:level]
-    @klass.save!
-    redirect_to klasses_path()
+    if @klass.save
+      flash[:success] = "Класс изменен."
+      redirect_to klasses_path()
+    else
+      flash[:error] = @klass.errors.full_messages
+      render 'new'
+    end
   end
 
   def destroy

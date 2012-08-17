@@ -31,4 +31,5 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'thin'
 gem 'haml'
+gem "breadcrumbs_on_rails"
 

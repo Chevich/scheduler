@@ -11,4 +11,7 @@ class Teacher < ActiveRecord::Base
   has_many :klasses, :through => :teacher_klass_subject_relations
 
   attr_accessible :user, :fio
+
+  validates :user, :presence => true
+  validates :fio, :presence => true, :length   => { :maximum => 100 }
 end

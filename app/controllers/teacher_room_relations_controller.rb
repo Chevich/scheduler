@@ -33,8 +33,12 @@ class TeacherRoomRelationsController < ApplicationController
     @teacher_room_relations = TeacherRoomRelation.new
     @teacher_room_relations.teacher_id = params[:teacher_room_relation][:teacher_id] unless params[:teacher_room_relation][:teacher_id].nil?
     @teacher_room_relations.room_id = params[:teacher_room_relation][:room] unless params[:teacher_room_relation][:room].nil?
-    @teacher_room_relations.save!
-    redirect_to teacher_room_relations_path(:params => {teachers_id:params[:teacher_room_relation][:teacher_id]})
+    if @teacher_room_relations.save
+      redirect_to teacher_room_relations_path(:params => {teachers_id:params[:teacher_room_relation][:teacher_id]})
+    else
+      flash[:error] = @teacher_room_relations.errors.full_messages
+      redirect_to new_teacher_room_relation_path(teachers_id:params[:teacher_room_relation][:teacher_id])
+    end
   end
 
   def edit

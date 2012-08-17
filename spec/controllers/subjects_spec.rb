@@ -42,5 +42,36 @@ describe SubjectsController do
     expect {delete :destroy, :id => subject.id}.to change(Subject, :count)
   end
 
+  it "Проверка валидаций NAME" do
+    put :update, :id => subject.id, :subject => {name: "", level:4, hours_per_week: 4}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций LEVEL" do
+    put :update, :id => subject.id, :subject => {name: "another subject", level:-1, hours_per_week: 4}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций HOURS_PER_WEEK" do
+    put :update, :id => subject.id, :subject => {name: "another subject", level:4, hours_per_week: 0}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций (на создании) NAME" do
+    post :create, :subject =>  {name: "", level:4, hours_per_week: 4}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций (на создании) LEVEL" do
+    post :create, :subject =>  {name: "small subject", level:-4, hours_per_week: 4}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций (на создании) HOURS_PER_WEEK" do
+    post :create, :subject =>  {name: "small subject", level:4, hours_per_week: 0}
+    flash[:error].should_not be_nil
+  end
+
+
 end
 

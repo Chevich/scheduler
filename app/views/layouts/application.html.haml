@@ -7,4 +7,8 @@
     = csrf_meta_tags
   %body
     = link_to 'Главная', root_path()
+    %div
+      = render_breadcrumbs
+    - flash.each do |key, value|
+      = content_tag(:div, value, :class => "error")
     = yield

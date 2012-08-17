@@ -28,6 +28,26 @@ describe KlassSubjectRelationsController do
     end
   end
 
+  it "Проверка валидаций на создании HOURS_PER_WEEK" do
+    post :create, :klass_subject_relation => {klass_id: @klass.id, subject:@subject1.id, hours_per_week: 0}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций на создании KLASS" do
+    post :create, :klass_subject_relation => {subject:@subject1.id, hours_per_week: 2}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций на создании SUBJECT" do
+    post :create, :klass_subject_relation => {klass_id: @klass.id, hours_per_week: 2}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций уникальности" do
+    Fabricate(:klass_subject_relation, {klass:@klass, subject:@subject1})
+    post :create, :klass_subject_relation => {klass_id: @klass.id, subject:@subject1.id, hours_per_week: 2}
+    flash[:error].should_not be_nil
+  end
 
 end
 

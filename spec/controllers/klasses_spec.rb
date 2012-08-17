@@ -23,6 +23,7 @@ describe KlassesController do
 
   it "UPDATE успешен" do
     put :update, :id => klass.id, :klass => {name: "another klass", level: 7}
+    flash[:error].should be_nil
     response.should redirect_to(klasses_path)
   end
 
@@ -40,6 +41,26 @@ describe KlassesController do
   it "DELETE удаляет предмет" do
     klass.touch
     expect {delete :destroy, :id => klass.id}.to change(Klass, :count)
+  end
+
+  it "Проверка валидаций NAME" do
+    put :update, :id => klass.id, :klass => {name: "", level: 7}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций LEVEL" do
+    put :update, :id => klass.id, :klass => {name: "another klass", level: -1}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций на создании NAME" do
+    post :create, :klass => {name: "", level: 7}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций на создании LEVEL" do
+    post :create, :klass => {name: "another klass", level: -1}
+    flash[:error].should_not be_nil
   end
 
 end

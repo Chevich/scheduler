@@ -42,5 +42,27 @@ describe RoomsController do
     expect {delete :destroy, :id => room.id}.to change(Room, :count)
   end
 
+  it "Проверка валидаций NAME" do
+    put :update, :id => room.id, :room => {name: "", number:'414'}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций NUMBER" do
+    put :update, :id => room.id, :room => {name: "another room", number:''}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций на создании  NAME" do
+    post :create, :room => {name: "", number:'414'}
+    flash[:error].should_not be_nil
+  end
+
+  it "Проверка валидаций на создании NUMBER" do
+    post :create, :room => {name: "another room", number:''}
+    flash[:error].should_not be_nil
+  end
+
+
+
 end
 

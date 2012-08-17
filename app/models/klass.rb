@@ -8,4 +8,9 @@ class Klass < ActiveRecord::Base
 
 
   attr_accessible :user, :name, :level
+
+  validates :user, :presence => true
+  validates :name, :presence => true, :length   => { :maximum => 100 }
+  validates :level, :presence => true, :inclusion => { :in => 0..9 }
+
 end

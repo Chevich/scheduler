@@ -42,5 +42,17 @@ describe TeachersController do
     expect {delete :destroy, :id => teacher.id}.to change(Teacher, :count)
   end
 
+  it "Проверка валидаций FIO" do
+    put :update, :id => teacher.id, :teacher => {fio: ""}
+    flash[:error].should_not be_nil
+  end
+
+
+  it "Проверка валидаций (на создании) FIO" do
+    post :create, :teacher =>  {fio: ""}
+    flash[:error].should_not be_nil
+  end
+
+
 end
 
