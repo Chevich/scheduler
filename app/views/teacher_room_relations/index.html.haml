@@ -15,3 +15,5 @@
   = link_to 'Добавить все кабинеты', add_all_teacher_room_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post
 
 = link_to 'Новый кабинет', new_teacher_room_relation_path(:params => {teachers_id: @teacher.id})
+%div
+  =link_to 'Назад к учителям', teachers_path()

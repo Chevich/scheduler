@@ -1,7 +1,6 @@
 #coding: utf-8
 class KlassesController < ApplicationController
   def index
-    add_breadcrumb "klass", klasses_path()
     @klasses = current_user.klasses.all
   end
 

@@ -1,7 +1,6 @@
 #coding: utf-8
 class KlassSubjectRelationsController < ApplicationController
   def index
-    add_breadcrumb "klass_subject", :klass_subject_relations_path
     @klass = Klass.find(params[:klasses_id]) unless params[:klasses_id].nil?
     @klass_subject_relations = KlassSubjectRelation.where("klass_id = ?", @klass.id)
   end

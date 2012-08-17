@@ -15,3 +15,5 @@
   = link_to 'Добавить все кабинеты', add_all_subject_room_relations_path(:params => {subjects_id: @subject.id} ),:method => :post
 
 = link_to 'Новый кабинет', new_subject_room_relation_path(:params => {subjects_id: @subject.id})
+%div
+  =link_to 'Назад в предметы', subjects_path()

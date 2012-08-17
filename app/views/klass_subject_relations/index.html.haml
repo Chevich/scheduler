@@ -17,3 +17,5 @@
   = link_to 'Добавить все предметы', add_all_klass_subject_relations_path(:params => {klasses_id: @klass.id} ),:method => :post
 
 = link_to 'Новый предмет', new_klass_subject_relation_path(:params => {klasses_id: @klass.id})
+%div
+  =link_to 'Назад в классы', klasses_path()
