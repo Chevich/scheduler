@@ -14,7 +14,9 @@ class Timetable < ActiveRecord::Base
         current_user.klasses.each do |klass|
           klass.subjects.each do |subject|
             if check_subjects
-              subject.teachers do |teacher|
+              puts "subject = #{subject.name}"
+              subject.teachers.each do |teacher|
+                puts "teacher = #{teacher.fio}"
                 teacher.teacher_klass_subject_relations.each do |relation|
                   if relation.klass == klass && relation.subject == subject
                     table << {day:day, lesson:lesson, klass:klass.name}

@@ -6,4 +6,6 @@ class TeacherRoomRelation < ActiveRecord::Base
   validates :teacher, :presence => true
   validates_uniqueness_of :room_id, :scope => [:teacher_id]
 
+  attr_accessible :teacher, :room
+
 end
