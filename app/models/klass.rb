@@ -6,6 +6,7 @@ class Klass < ActiveRecord::Base
   has_many :teacher_klass_subject_relations
   has_many :teachers, :through => :teacher_klass_subject_relations
 
+  default_scope :order => 'klasses.id'
 
   attr_accessible :user, :name, :level
 

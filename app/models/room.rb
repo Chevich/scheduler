@@ -7,6 +7,7 @@ class Room < ActiveRecord::Base
   has_many :subject_room_relations
   has_many :subjects, :through => :subject_room_relations
 
+  default_scope :order => 'rooms.id'
 
   attr_accessible :user, :name, :number
 

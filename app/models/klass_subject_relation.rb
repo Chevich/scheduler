@@ -4,6 +4,8 @@ class KlassSubjectRelation < ActiveRecord::Base
 
   attr_accessible :klass, :subject, :hours_per_week
 
+  default_scope :order => 'klass_subject_relations.id'
+
   validates :klass, :presence => true
   validates :hours_per_week, :presence => true, :inclusion => { :in => 1..80 }
   validates :subject, :presence => true

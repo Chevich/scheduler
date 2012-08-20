@@ -10,6 +10,8 @@ class Teacher < ActiveRecord::Base
   has_many :teacher_klass_subject_relations
   has_many :klasses, :through => :teacher_klass_subject_relations
 
+  default_scope :order => 'teachers.id'
+
   attr_accessible :user, :fio
 
   validates :user, :presence => true

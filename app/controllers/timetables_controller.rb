@@ -22,8 +22,8 @@ class TimetablesController < ApplicationController
   end
 
   def recalculate
-    hash = Timetable.re_calculate(current_user)
-    @html = hash.inspect
+    array = Timetable.re_calculate(current_user)
+    @timeline_array = array
     render 'index'
   end
 end

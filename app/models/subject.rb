@@ -10,6 +10,8 @@ class Subject < ActiveRecord::Base
   has_many :klass_subject_relations
   has_many :klasses, :through => :klass_subject_relations
 
+  default_scope :order => 'subjects.id'
+
   attr_accessible :user, :name, :level, :hours_per_week
 
   validates :user, :presence => true
