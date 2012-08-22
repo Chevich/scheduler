@@ -52,33 +52,45 @@ class Timetable < ActiveRecord::Base
     #end
 
     def self.check_timeline(current_user, table)
+      puts 'enter'
+      result = true
       current_user.klasses.each do |klass|
-        klass.klass_subject_relations.each do |relation|
-          subject = relation.subject
-          hours_per_week = relation.hours_per_week
-          hours = 0
-          table.each do |row|
-            hours = hours + 1 if row[:klass] == klass && row[:subject] == subject
+        if result
+          klass.klass_subject_relations.each do |relation|
+            if result
+              subject = relation.subject
+              hours_per_week = relation.hours_per_week
+              hours = 0
+              table.each do |row|
+                hours += 1 if row[:klass] == klass && row[:subject] == subject
+              end
+              result = false if hours > hours_per_week
+            end
           end
-          return false unless hours == hours_per_week
         end
       end
-      false
+      puts "result = #{result}"
+      result
     end
 
-    def self.calc(current_user, min_day, min_lesson, table)
+    def self.calc_this(current_user, min_day, min_lesson, min_klass, min_subject, min_teacher, table)
+      @level += 1
+      puts "#{min_day} #{min_lesson}  k=#{min_klass} s=#{min_subject} t=#{min_teacher} (#{@level})"
       (min_day..6).each do |day| # дни недели
         (min_lesson..2).each do |lesson| # номер урока
-          current_user.klasses.each do |klass|
-            klass.klass_subject_relations.each do |klass_subject|
+          current_user.klasses.each_with_index do |klass, klass_index|
+            klass.klass_subject_relations.each_with_index do |klass_subject, subject_index|
               subject = klass_subject.subject
               hours_per_week = klass_subject.hours_per_week
-              subject.teachers.each do |teacher|
+              subject.teachers.each_with_index do |teacher, teacher_index|
                 teacher.teacher_klass_subject_relations.each do |relation|
                   if relation.klass == klass && relation.subject == subject
                     if validate(table, day,lesson,subject, klass, hours_per_week)
                       table << {day:day, lesson:lesson, klass:klass, subject:subject}
-                      table.pop unless calc(current_user,day,lesson,table)
+                      until calc_this(current_user, day, lesson, klass_index, subject_index, teacher_index, table)
+                        table.pop
+                        @level -=1
+                      end
                     end
                   end
                 end
@@ -90,10 +102,15 @@ class Timetable < ActiveRecord::Base
       check_timeline(current_user, table)
     end
 
+    def self.calc(current_user, table)
+      calc_this(current_user,1,1,-1,-1,-1,table)
+    end
 
 
+
+    @level = 0
     table = Array.new
-    calc(current_user,1,1,table)
+    calc(current_user,table)
     table
   end
 end
