@@ -8,7 +8,7 @@ class Klass < ActiveRecord::Base
 
   default_scope :order => 'klasses.id'
 
-  attr_accessible :user, :name, :level
+  attr_accessible :user, :name, :level, :days_per_week, :lessons_per_day
 
   validates :user, :presence => true
   validates :name, :presence => true, :length   => { :maximum => 100 }

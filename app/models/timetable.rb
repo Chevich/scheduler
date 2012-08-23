@@ -7,6 +7,7 @@ class Timetable < ActiveRecord::Base
 
     def self.validate(table, day, lesson, subject, klass, hours_per_week)
       hour_count = 0
+      prev_lessons = 0
       table.each do |row|
         # был ли в этот день уже такой урок в данном классе
         if row[:day] == day && row[:subject] == subject && row[:klass] == klass
@@ -20,76 +21,37 @@ class Timetable < ActiveRecord::Base
         if row[:day] == day && row[:lesson] == lesson && row[:klass] == klass
           return false
         end
-        # сколько часов в неделю данный урок уже выставлен в расписании
-        hour_count = hour_count + 1 if row[:subject] == subject && row[:klass] == klass
-        if hour_count >= hours_per_week
-          return false
-        end
+        # нельзя оставлять форточки
+        # подсчитываем сколько уроков до данного уже есть в расписании
+        prev_lessons += 1 if row[:day] == day && row[:klass]== klass && row[:lesson] < lesson
+      end
+      # нельзя оставлять форточки
+      # проверим подсчитанные уроки (должно быть lesson - 1)
+      if prev_lessons != (lesson -1)
+        return false
       end
       return true
     end
 
-    #def self.calc(current_user, min_day, min_lesson, table)
-    #  (min_day..6).each do |day| # дни недели
-    #    (min_lesson..2).each do |lesson| # номер урока
-    #      current_user.klasses.each do |klass|
-    #        klass.klass_subject_relations.each do |klass_subject|
-    #          subject = klass_subject.subject
-    #          hours_per_week = klass_subject.hours_per_week
-    #          subject.teachers.each do |teacher|
-    #            teacher.teacher_klass_subject_relations.each do |relation|
-    #              if relation.klass == klass && relation.subject == subject
-    #                if validate(table, day,lesson,subject, klass, hours_per_week)
-    #                  table << {day:day, lesson:lesson, klass:klass, subject:subject}
-    #                end
-    #              end
-    #            end
-    #          end
-    #        end
-    #      end
-    #    end
-    #  end
-    #end
-
-    def self.check_timeline(current_user, table)
-      puts 'enter'
-      result = true
-      current_user.klasses.each do |klass|
-        if result
-          klass.klass_subject_relations.each do |relation|
-            if result
-              subject = relation.subject
-              hours_per_week = relation.hours_per_week
-              hours = 0
-              table.each do |row|
-                hours += 1 if row[:klass] == klass && row[:subject] == subject
-              end
-              result = false if hours > hours_per_week
-            end
-          end
-        end
-      end
-      puts "result = #{result}"
-      result
-    end
-
-    def self.calc_this(current_user, min_day, min_lesson, min_klass, min_subject, min_teacher, table)
+    def self.calc_this(current_user, table)
       @level += 1
-      puts "#{min_day} #{min_lesson}  k=#{min_klass} s=#{min_subject} t=#{min_teacher} (#{@level})"
-      (min_day..6).each do |day| # дни недели
-        (min_lesson..2).each do |lesson| # номер урока
-          current_user.klasses.each_with_index do |klass, klass_index|
-            klass.klass_subject_relations.each_with_index do |klass_subject, subject_index|
-              subject = klass_subject.subject
-              hours_per_week = klass_subject.hours_per_week
-              subject.teachers.each_with_index do |teacher, teacher_index|
-                teacher.teacher_klass_subject_relations.each do |relation|
-                  if relation.klass == klass && relation.subject == subject
-                    if validate(table, day,lesson,subject, klass, hours_per_week)
-                      table << {day:day, lesson:lesson, klass:klass, subject:subject}
-                      until calc_this(current_user, day, lesson, klass_index, subject_index, teacher_index, table)
-                        table.pop
-                        @level -=1
+      current_user.klasses.each_with_index do |klass, klass_index|
+        (1..klass.days_per_week).each do |day| # дни недели
+          (1..klass.lessons_per_day).each do |lesson| # номер урока
+            @ks.each_with_index do |klass_subject, subject_index|
+              if klass_subject[:klass] == klass && !klass_subject[:taken]
+                subject = klass_subject[:subject]
+                subject.teachers.each_with_index do |teacher, teacher_index|
+                  teacher.teacher_klass_subject_relations.each do |relation|
+                    if relation.klass == klass && relation.subject == subject
+                      if !klass_subject[:taken] && validate(table, day,lesson,subject, klass, klass_subject[:hours_per_week])
+                        table << {day:day, lesson:lesson, klass:klass, subject:subject}
+                        klass_subject[:taken] = true
+                        until calc_this(current_user, table)
+                          table.pop
+                          klass_subject[:taken] = false
+                          @level -=1
+                        end
                       end
                     end
                   end
@@ -99,18 +61,35 @@ class Timetable < ActiveRecord::Base
           end
         end
       end
-      check_timeline(current_user, table)
+    end
+
+    def self.print_ks
+      @ks.each do |item|
+        puts "#{item[:klass].name} #{item[:subject].name} #{item[:taken]}"
+      end
     end
 
     def self.calc(current_user, table)
-      calc_this(current_user,1,1,-1,-1,-1,table)
+      # Сохраняем Klass_subject для дальнейшего использования
+      current_user.klasses.each do |klass|
+        @ks += klass.klass_subject_relations.inject([]) do |array, item|
+          temp = []
+          item.hours_per_week.times do
+            temp << {klass:item.klass, subject:item.subject, hours_per_week:item.hours_per_week, taken:false}
+          end
+          array += temp
+        end
+      end
+      calc_this(current_user,table)
     end
 
 
-
+    puts '======================================================='
     @level = 0
+    @ks = Array.new
     table = Array.new
     calc(current_user,table)
+    puts "last level = #{@level}"
     table
   end
 end

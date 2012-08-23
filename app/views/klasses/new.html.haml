@@ -6,5 +6,11 @@
     =f.label :level, 'Год обучения'
     =f.text_field :level
   .box
+    =f.label :level, 'Уроков в день'
+    =f.text_field :lessons_per_day
+  .box
+    =f.label :level, 'Учебных дней в неделю'
+    =f.text_field :days_per_week
+  .box
     =submit_tag 'Сохранить'
     =link_to 'Назад', klasses_path()

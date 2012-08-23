@@ -3,7 +3,7 @@ module TimetablesHelper
     unless array.nil?
       array.each do |row|
         if row[:day] == day && row[:lesson] == lesson && row[:klass] == klass
-          return row[:subject].name.inspect
+          return row[:subject].name
           #return "#{day} #{lesson} #{klass.name}"
           #return "#{row.inspect}"
         end

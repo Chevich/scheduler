@@ -24,11 +24,13 @@ ActiveRecord::Schema.define(:version => 20120817133017) do
   add_index "klass_subject_relations", ["subject_id"], :name => "index_klass_subject_relations_on_subject_id"
 
   create_table "klasses", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.string   "name",       :null => false
-    t.integer  "level",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "user_id",         :null => false
+    t.string   "name",            :null => false
+    t.integer  "level",           :null => false
+    t.integer  "lessons_per_day", :null => false
+    t.integer  "days_per_week",   :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   add_index "klasses", ["user_id", "name"], :name => "index_klasses_on_user_id_and_name", :unique => true

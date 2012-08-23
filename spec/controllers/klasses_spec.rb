@@ -34,7 +34,7 @@ describe KlassesController do
   end
 
   it "CREATE вставляет предмет" do
-    expect {post :create, :klass =>  {name: "small klass", level: 7}}.to change(Klass, :count)
+    expect {post :create, :klass =>  {name: "small klass", level: 7, lessons_per_day: 5, days_per_week: 6}}.to change(Klass, :count)
   end
 
 
