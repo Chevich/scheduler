@@ -1,7 +1,7 @@
 class CreateTimetablesDtl < ActiveRecord::Migration
   def change
-    create_table :timetables_dtl do |t|
-      t.integer :timetables_id, :null => false
+    create_table :timetables_dtls do |t|
+      t.integer :timetable_id, :null => false
       t.integer :day, :null => false
       t.integer :lesson, :null => false
       t.integer :klass_id, :null => false

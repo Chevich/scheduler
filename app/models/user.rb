@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
 
-  has_many :rooms
-  has_many :klasses
-  has_many :teachers
-  has_many :subjects
+  has_many :rooms, :dependent => :delete_all
+  has_many :klasses, :dependent => :delete_all
+  has_many :teachers, :dependent => :delete_all
+  has_many :subjects, :dependent => :delete_all
+  has_many :timetables, :dependent => :delete_all
 end

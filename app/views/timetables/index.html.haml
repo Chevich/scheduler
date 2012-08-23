@@ -1,26 +1,46 @@
 = link_to 'Пересчитать расписания', recalculate_timetables_path(),:method => :post
-%div
+
+- unless @timetables.empty?
   %table
     %tr
-      %th= 'РАСПИСАНИЕ'
-      - (1..7).each do |day|
-        %th= 'День № '+day.inspect
-    - current_user.klasses.each do |klass|
+      %th Версия
+      %th Комментарий
+      %th Ссылка
+    - @timetables.each do |f|
       %tr
-        %td= klass.name.inspect
-        - (1..7).each do |day|
-          %td
-            %table
-              %tr
-                %th= '#'
-                %th= 'lesson'
-              - (1..6).each do |lesson|
-                %tr
-                  %td= "#{lesson.inspect}."
-                  %td= get_subject(@timeline_array, day, lesson, klass)
+        %td=f.version
+        %td=f.comment
+        %td= link_to 'Смотреть', timetable_timetables_dtls_path(f)
+- else
+  .empty Пустой список
 
-%div
-  - unless @timeline_array.nil?
-    -@timeline_array.each do |row|
-      %div
-        = "row => #{row.inspect}"
+
+-#%div
+-#  %table
+-#    %tr
+-#      %th= 'РАСПИСАНИЕ'
+-#      - (1..7).each do |day|
+-#        %th= 'День № '+day.inspect
+-#    - current_user.klasses.each do |klass|
+-#      %tr
+-#        %td= klass.name.inspect
+-#        - (1..7).each do |day|
+-#          %td
+-#            %table
+-#              %tr
+-#                %th= '#'
+-#                %th= 'Предмет'
+-#                %th= 'Каб.'
+-#                %th= 'Учитель'
+-#              - (1..6).each do |lesson|
+-#                %tr
+-#                  %td= "#{lesson.inspect}."
+-#                  %td= get_subject(@timeline_array, day, lesson, klass)
+-#                  %td= get_room(@timeline_array, day, lesson, klass)
+-#                  %td= get_teacher(@timeline_array, day, lesson, klass)
+
+-#%div
+-#  - unless @timeline_array.nil?
+-#    -@timeline_array.each do |row|
+-#      %div
+-#        = "row => #{row.inspect}"

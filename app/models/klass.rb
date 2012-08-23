@@ -1,9 +1,9 @@
 class Klass < ActiveRecord::Base
   belongs_to :user
-  has_many :klass_subject_relations
+  has_many :klass_subject_relations, :dependent => :delete_all
   has_many :subjects, :through => :klass_subject_relations
 
-  has_many :teacher_klass_subject_relations
+  has_many :teacher_klass_subject_relations, :dependent => :delete_all
   has_many :teachers, :through => :teacher_klass_subject_relations
 
   default_scope :order => 'klasses.id'

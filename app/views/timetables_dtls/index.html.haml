@@ -1,0 +1,27 @@
+%h1= "Расписание"
+- unless @dtls.empty?
+  %div
+    %table
+      %tr
+        %th= 'РАСПИСАНИЕ'
+        - (1..7).each do |day|
+          %th= 'День № '+day.inspect
+      - @klasses.each do |klass|
+        %tr
+          %td= klass.name.inspect
+          - (1..7).each do |day|
+            %td
+              %table
+                %tr
+                  %th= '#'
+                  %th= 'Предмет'
+                  %th= 'Каб.'
+                  %th= 'Учитель'
+                - (1..6).each do |lesson|
+                  %tr
+                    %td= "#{lesson.inspect}."
+                    %td= get_subject(@dtls, day, lesson, klass)
+                    %td= get_room(@dtls, day, lesson, klass)
+                    %td= get_teacher(@dtls, day, lesson, klass)
+- else
+  .empty Пустой список

@@ -35,6 +35,7 @@ Scheduler::Application.routes.draw do
     end
   end
   resources :timetables do
+    resources :timetables_dtls
     collection do
       post 'recalculate'
     end

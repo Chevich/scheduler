@@ -22,15 +22,18 @@ describe KlassesController do
   end
 
   it "UPDATE успешен" do
-    put :update, :id => klass.id, :klass => {name: "another klass", level: 7}
+    put :update, :id => klass.id, :klass => {name: "another klass", level: 7, lessons_per_day: 2, days_per_week: 2}
     flash[:error].should be_nil
     response.should redirect_to(klasses_path)
   end
 
   it "UPDATE делает правильные значения" do
-    put :update, :id => klass.id, :klass => {name: "another klass", level: 7}
+    put :update, :id => klass.id, :klass => {name: "another klass", level: 2, lessons_per_day: 2, days_per_week: 2}
     klass.reload
     klass.name.should == "another klass"
+    klass.level.should == 2
+    klass.lessons_per_day.should == 2
+    klass.days_per_week.should == 2
   end
 
   it "CREATE вставляет предмет" do

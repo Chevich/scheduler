@@ -38,6 +38,8 @@ class KlassesController < ApplicationController
     @klass = current_user.klasses.find(params[:id])
     @klass.name = params[:klass][:name]
     @klass.level = params[:klass][:level]
+    @klass.lessons_per_day = params[:klass][:lessons_per_day]
+    @klass.days_per_week = params[:klass][:days_per_week]
     if @klass.save
       flash[:success] = "Класс изменен."
       redirect_to klasses_path()

@@ -1,13 +1,13 @@
 class Subject < ActiveRecord::Base
   belongs_to :user
 
-  has_many :subject_room_relations
+  has_many :subject_room_relations, :dependent => :delete_all
   has_many :rooms, :through => :subject_room_relations
 
-  has_many :teacher_subject_relations
+  has_many :teacher_subject_relations, :dependent => :delete_all
   has_many :teachers, :through => :teacher_subject_relations
 
-  has_many :klass_subject_relations
+  has_many :klass_subject_relations, :dependent => :delete_all
   has_many :klasses, :through => :klass_subject_relations
 
   default_scope :order => 'subjects.id'

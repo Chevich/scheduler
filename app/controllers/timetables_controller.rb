@@ -1,6 +1,7 @@
 #coding: utf-8
 class TimetablesController < ApplicationController
   def index
+    @timetables = current_user.timetables.all
   end
 
   def new
