@@ -2,14 +2,16 @@ class Timetable < ActiveRecord::Base
   has_many :timetables_dtls, :dependent => :delete_all
   belongs_to :user
 
+  default_scope :order => 'timetables.id'
+
   attr_accessible :user, :version, :comment
 
   def self.re_calculate(current_user)
 
-    def self.validate(table, day, lesson, subject, klass, hours_per_week, room, teacher)
+    def self.validate(day, lesson, subject, klass, hours_per_week, room, teacher)
       hour_count = 0
       prev_lessons = 0
-      table.each do |row|
+      @table.each do |row|
         # был ли в этот день уже такой урок в данном классе
         if row[:day] == day && row[:subject] == subject && row[:klass] == klass
           return false
@@ -42,18 +44,29 @@ class Timetable < ActiveRecord::Base
       return true
     end
 
-    def self.check_bingo(current_user,table)
+    def self.check_day_lesson_klass(day, lesson, klass)
+      @table.each do |row|
+        # свободен ли для вставки данный урок
+        if row[:day] == day && row[:lesson] == lesson && row[:klass] == klass
+          return false
+        end
+      end
+      return true
+    end
+
+    def self.check_bingo(current_user)
       @klass_subject_relation.each do |item|
         return false until item[:taken]
       end
       # сохраняем данное расписание
       @version += 1
+      time_save = Time.now
       #puts "BINGO! (#@version)"
       tt = current_user.timetables.new()
       tt.version = @version
       tt.comment = ''
       tt.save!
-      table.each do |row|
+      @table.each do |row|
         td = tt.timetables_dtls.new()
         td.day = row[:day]
         td.lesson = row[:lesson]
@@ -63,7 +76,8 @@ class Timetable < ActiveRecord::Base
         td.room_id = row[:room].id
         td.save!
       end
-      #@evaluate = false
+      @save_time += Time.now.minus_with_coercion(time_save)
+      #@evaluate = false if @version >=10
       true
     end
 
@@ -86,32 +100,48 @@ class Timetable < ActiveRecord::Base
       @teacher_klass_subject_relation.map { |item| item[:teacher] if item[:teacher] == teacher && item[:klass] == klass && item[:subject] == subject }.compact
     end
 
-    def self.calc_this(current_user, table)
+    def self.get_relation_by_klass(klass)
+      @teacher_klass_subject_relation.map { |item| item if item[:klass] == klass }.compact
+    end
+
+    def self.get_klass_subject(klass, subject)
+      @klass_subject_relation.each do |item|
+        if item[:klass] == klass && item[:subject] == subject && !item[:taken]
+          return item
+        end
+        nil
+      end.first
+    end
+
+    def self.calc_this(current_user, min_klass_index, min_day, min_lesson)
       @level += 1
       current_user.klasses.each_with_index do |klass, klass_index|
         (1..klass.days_per_week).each do |day| # дни недели
           (1..klass.lessons_per_day).each do |lesson| # номер урока
-            @klass_subject_relation.each do |klass_subject|
-              if klass_subject[:klass] == klass && !klass_subject[:taken] && @evaluate
-                subject = klass_subject[:subject]
-                teachers_by_subject(subject).each do |teacher|
-                  get_relation(teacher, klass, subject).each do |relation|
-                    if @evaluate
+            #if klass_index >= min_klass_index && day >= min_day && lesson >=min_lesson
+            #  if klass_index != min_klass_index || day != min_day || lesson >=min_lesson
+                if check_day_lesson_klass(day, lesson, klass)
+                  get_relation_by_klass(klass).each do |relation|
+                    return until @evaluate
+                    teacher = relation[:teacher]
+                    subject = relation[:subject]
+                    klass_subject = get_klass_subject(klass, subject)
+                    if klass_subject
                       get_rooms(teacher,subject).each do |room|
-                        if !klass_subject[:taken] && validate(table, day, lesson, subject, klass, klass_subject[:hours_per_week], room, teacher) && @evaluate
-                          #puts "insert #{day} #{lesson} #{subject.name} #{klass.name} #{room.number} #{teacher.fio} (#{@level})"
-                          table << {day:day, lesson:lesson, klass:klass, subject:subject, room: room, teacher: teacher}
+                        if validate(day, lesson, subject, klass, klass_subject[:hours_per_week], room, teacher) && @evaluate
+                          #puts "insert #{day} #{lesson} #{subject.name} #{klass.name} #{room.number} #{teacher.fio} (#@level)"
+                          @table << {day:day, lesson:lesson, klass:klass, subject:subject, room: room, teacher: teacher}
                           klass_subject[:taken] = true
-                          check_bingo(current_user,table)
-                          calc_this(current_user,table)
-                          table.pop
+                          check_bingo(current_user)
+                          calc_this(current_user, klass_index, day, lesson)
+                          @table.pop
                           klass_subject[:taken] = false
                         end
                       end
                     end
                   end
-                end
-              end
+              #  end
+              #end
             end
           end
         end
@@ -119,21 +149,9 @@ class Timetable < ActiveRecord::Base
       @level -=1
     end
 
-    def self.print_ks
-      @klass_subject_relation.each do |item|
-        puts "#{item[:klass].name} #{item[:subject].name} #{item[:taken]}"
-      end
-    end
-
-    def self.print_ts
-      @teacher_subject_relation.each do |item|
-        puts "#{item[:teacher].inspect} #{item[:subject].inspect}"
-      end
-    end
-
-
-    def self.calc(current_user, table)
+    def self.calc(current_user)
       # Сохраняем klass_subject для дальнейшего использования
+      time_init = Time.now
       current_user.klasses.each do |klass|
         @klass_subject_relation += klass.klass_subject_relations.inject([]) do |array, item|
           temp = []
@@ -157,24 +175,24 @@ class Timetable < ActiveRecord::Base
       end
       # Сохраняем subject_room для дальнейшего использования
       current_user.subjects.each do |subject|
-        subject.subject_room_relations.inject([]) do |item|
+        subject.subject_room_relations.each do |item|
           @subject_room_relation << {subject:item.subject, room:item.room}
         end
       end
       # Сохраняем teacher_klass_subject_relations для дальнейшего использования
-      current_user.teachers.each do |teacher|
-        @teacher_klass_subject_relation += teacher.teacher_klass_subject_relations.inject([]) do |array, item|
-          array << {teacher:item.teacher, klass:item.klass, subject:item.subject}
+      current_user.klasses.each do |klass|
+        klass.teacher_klass_subject_relations.each do |item|
+          @teacher_klass_subject_relation << {teacher:item.teacher, klass:klass, subject:item.subject}
         end
       end
-
-      #puts @teacher_klass_subject_relation.inspect
-
-      calc_this(current_user,table)
+      @init_time += Time.now.minus_with_coercion(time_init)
+      calc_this(current_user,0,1,1)
     end
 
 
     time = Time.now()
+    @save_time = 0
+    @init_time = 0
     current_user.timetables.delete_all
     @level = 0
     @klass_subject_relation = Array.new
@@ -184,9 +202,10 @@ class Timetable < ActiveRecord::Base
     @teacher_klass_subject_relation = []
     @version = 0
     @evaluate = true
-    table = Array.new
-    calc(current_user,table)
-    puts "DONE for #{Time.now.minus_with_coercion(time)} seconds"
-    table
+    @table = Array.new
+    calc(current_user)
+    calc_time = Time.now.minus_with_coercion(time)
+    puts "DONE for #{calc_time} seconds. Save time = #{@save_time}. Init time = #{@init_time}. Calculation time = #{calc_time - @save_time- @init_time}"
+    @table
   end
 end
