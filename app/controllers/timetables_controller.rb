@@ -24,7 +24,11 @@ class TimetablesController < ApplicationController
 
   def recalculate
     array = Timetable.re_calculate(current_user)
-    @timeline_array = array
-    render 'index'
+    redirect_to timetables_path()
+  end
+
+  def delete_all
+    current_user.timetables.delete_all
+    redirect_to timetables_path()
   end
 end

@@ -1,16 +1,11 @@
 #coding: utf-8
-require "spec_helper"
+require 'spec_helper'
 
-describe "Таблица списка сгенерированных расписаний", :type => :request do
-  include Capybara::DSL
+describe Timetable do
 
   before(:each) do
     @user = Fabricate(:user)
-    visit('/')
-    fill_in 'Email', with: @user.email
-    fill_in 'Password', with: @user.password
-    click_on('Sign in')
-
+    #sign_in @user
     # вводим начальные тестовые данные
     room1 = Fabricate(:room, {name: '2а начальные классы', number:'201'})
 
@@ -35,25 +30,14 @@ describe "Таблица списка сгенерированных распи�
     Fabricate(:teacher_klass_subject_relation,{teacher:teacher1, klass: klass1, subject:subject1})
     Fabricate(:teacher_klass_subject_relation,{teacher:teacher1, klass: klass1, subject:subject2})
     Fabricate(:teacher_klass_subject_relation,{teacher:teacher1, klass: klass1, subject:subject3})
+
   end
 
-  it "присутствует" do
-    click_on('Сгенерированные расписания')
-    current_path.should == timetables_path
+  describe "Новый кабинет должен иметь все предметы по-умолчанию" do
+    it "когда нет предметов - в списке пусто" do
+      Timetable.re_calculate(@user)
+      Timetable.count.should == 6
+      TimetablesDtl.count.should == 6 * 3
+    end
   end
-
-  it "имеет возможность пересчитать расписание" do
-    click_on('Сгенерированные расписания')
-    click_on('Пересчитать расписания')
-    current_path.should == timetables_path
-  end
-
-  it "имеет возможность очищаться" do
-    click_on('Сгенерированные расписания')
-    click_on('Пересчитать расписания')
-    click_on('Очистить список')
-    current_path.should == timetables_path
-  end
-
-
 end

@@ -11,6 +11,8 @@
         %td=f.version
         %td=f.comment
         %td= link_to 'Смотреть', timetable_timetables_dtls_path(f)
+  %div
+    = link_to "Очистить список", delete_all_timetables_path(),:method => :post
 - else
   .empty Пустой список
 

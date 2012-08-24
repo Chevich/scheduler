@@ -43,12 +43,12 @@ class Timetable < ActiveRecord::Base
     end
 
     def self.check_bingo(current_user,table)
-      @ks.each do |item|
+      @klass_subject_relation.each do |item|
         return false until item[:taken]
       end
       # сохраняем данное расписание
       @version += 1
-      puts "BINGO! (#@version)"
+      #puts "BINGO! (#@version)"
       tt = current_user.timetables.new()
       tt.version = @version
       tt.comment = ''
@@ -63,19 +63,27 @@ class Timetable < ActiveRecord::Base
         td.room_id = row[:room].id
         td.save!
       end
-      @evaluate = false
+      #@evaluate = false
       true
     end
 
     def self.get_rooms(teacher, subject)
       # если можно вести предмет там где хочет учитель то вначале списка выставляем его
-      if subject.rooms.empty?
+      rooms = @subject_room_relation.map { |item| item[:room] if item[:subject] == subject }.compact
+
+      if rooms.empty?
         #  можно вести в любом кабинете
-        teacher.rooms
-      else
-        #  можно вести только в конкретном кабинете
-        subject.rooms
+        rooms = @teacher_room_relation.map { |item| item[:room] if item[:teacher] == teacher }.compact
       end
+      rooms
+    end
+
+    def self.teachers_by_subject(subject)
+      @teacher_subject_relation.map { |item| item[:teacher] if item[:subject] == subject }.compact
+    end
+
+    def self.get_relation(teacher, klass, subject)
+      @teacher_klass_subject_relation.map { |item| item[:teacher] if item[:teacher] == teacher && item[:klass] == klass && item[:subject] == subject }.compact
     end
 
     def self.calc_this(current_user, table)
@@ -83,12 +91,12 @@ class Timetable < ActiveRecord::Base
       current_user.klasses.each_with_index do |klass, klass_index|
         (1..klass.days_per_week).each do |day| # дни недели
           (1..klass.lessons_per_day).each do |lesson| # номер урока
-            @ks.each do |klass_subject|
+            @klass_subject_relation.each do |klass_subject|
               if klass_subject[:klass] == klass && !klass_subject[:taken] && @evaluate
                 subject = klass_subject[:subject]
-                subject.teachers.each do |teacher|
-                  teacher.teacher_klass_subject_relations.each do |relation|
-                    if relation.klass == klass && relation.subject == subject && @evaluate
+                teachers_by_subject(subject).each do |teacher|
+                  get_relation(teacher, klass, subject).each do |relation|
+                    if @evaluate
                       get_rooms(teacher,subject).each do |room|
                         if !klass_subject[:taken] && validate(table, day, lesson, subject, klass, klass_subject[:hours_per_week], room, teacher) && @evaluate
                           #puts "insert #{day} #{lesson} #{subject.name} #{klass.name} #{room.number} #{teacher.fio} (#{@level})"
@@ -112,15 +120,22 @@ class Timetable < ActiveRecord::Base
     end
 
     def self.print_ks
-      @ks.each do |item|
+      @klass_subject_relation.each do |item|
         puts "#{item[:klass].name} #{item[:subject].name} #{item[:taken]}"
       end
     end
 
+    def self.print_ts
+      @teacher_subject_relation.each do |item|
+        puts "#{item[:teacher].inspect} #{item[:subject].inspect}"
+      end
+    end
+
+
     def self.calc(current_user, table)
-      # Сохраняем Klass_subject для дальнейшего использования
+      # Сохраняем klass_subject для дальнейшего использования
       current_user.klasses.each do |klass|
-        @ks += klass.klass_subject_relations.inject([]) do |array, item|
+        @klass_subject_relation += klass.klass_subject_relations.inject([]) do |array, item|
           temp = []
           item.hours_per_week.times do
             temp << {klass:item.klass, subject:item.subject, hours_per_week:item.hours_per_week, taken:false}
@@ -128,19 +143,50 @@ class Timetable < ActiveRecord::Base
           array += temp
         end
       end
-      #print_ks
+      # Сохраняем teacher_subject для дальнейшего использования
+      current_user.teachers.each do |teacher|
+        teacher.teacher_subject_relations.each do |item|
+          @teacher_subject_relation << {teacher:item.teacher, subject:item.subject}
+        end
+      end
+      # Сохраняем teacher_room для дальнейшего использования
+      current_user.teachers.each do |teacher|
+        teacher.teacher_room_relations.each do |item|
+          @teacher_room_relation << {teacher:item.teacher, room:item.room}
+        end
+      end
+      # Сохраняем subject_room для дальнейшего использования
+      current_user.subjects.each do |subject|
+        subject.subject_room_relations.inject([]) do |item|
+          @subject_room_relation << {subject:item.subject, room:item.room}
+        end
+      end
+      # Сохраняем teacher_klass_subject_relations для дальнейшего использования
+      current_user.teachers.each do |teacher|
+        @teacher_klass_subject_relation += teacher.teacher_klass_subject_relations.inject([]) do |array, item|
+          array << {teacher:item.teacher, klass:item.klass, subject:item.subject}
+        end
+      end
+
+      #puts @teacher_klass_subject_relation.inspect
+
       calc_this(current_user,table)
     end
 
 
-    puts '======================================================='
+    time = Time.now()
     current_user.timetables.delete_all
     @level = 0
-    @ks = Array.new
+    @klass_subject_relation = Array.new
+    @teacher_subject_relation = []
+    @teacher_room_relation = []
+    @subject_room_relation = []
+    @teacher_klass_subject_relation = []
     @version = 0
     @evaluate = true
     table = Array.new
     calc(current_user,table)
+    puts "DONE for #{Time.now.minus_with_coercion(time)} seconds"
     table
   end
 end

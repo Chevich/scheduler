@@ -38,6 +38,7 @@ Scheduler::Application.routes.draw do
     resources :timetables_dtls
     collection do
       post 'recalculate'
+      post 'delete_all'
     end
   end
   root :to => 'page#index'
