@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817133017) do
+ActiveRecord::Schema.define(:version => 20120914145741) do
 
   create_table "klass_subject_relations", :force => true do |t|
     t.integer "klass_id",       :null => false
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(:version => 20120817133017) do
   end
 
   add_index "rooms", ["user_id", "number"], :name => "index_rooms_on_user_id_and_number", :unique => true
+
+  create_table "settings", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.string   "name",       :null => false
+    t.string   "value",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "subject_room_relations", :force => true do |t|
     t.integer "subject_id", :null => false
