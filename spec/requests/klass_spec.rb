@@ -24,6 +24,7 @@ describe "модель Классы", :type => :request do
     click_on('Классы')
     page.should have_content('Уроков в день')
     page.should have_content('Учебных дней в неделю')
+    page.should have_content('Учебные дни')
   end
 
   it "Есть поля 'Уроков в день' и 'Учебных дней в неделю'" do
@@ -32,6 +33,7 @@ describe "модель Классы", :type => :request do
     click_on('Изменить')
     fill_in 'Уроков в день', :with => '2'
     fill_in 'Учебных дней в неделю', :with => '8'
+    fill_in 'Учебные дни', :with => '8'
     click_on('Сохранить')
     current_path.should == klasses_path
   end

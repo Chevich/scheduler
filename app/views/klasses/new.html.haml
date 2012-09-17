@@ -12,5 +12,8 @@
     =f.label :level, 'Учебных дней в неделю'
     =f.text_field :days_per_week
   .box
+    =f.label :level, 'Учебные дни'
+    =f.text_field :days
+  .box
     =submit_tag 'Сохранить'
     =link_to 'Назад', klasses_path()

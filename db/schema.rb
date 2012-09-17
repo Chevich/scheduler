@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914145741) do
+ActiveRecord::Schema.define(:version => 20120917085423) do
 
   create_table "klass_subject_relations", :force => true do |t|
     t.integer "klass_id",       :null => false
@@ -24,13 +24,14 @@ ActiveRecord::Schema.define(:version => 20120914145741) do
   add_index "klass_subject_relations", ["subject_id"], :name => "index_klass_subject_relations_on_subject_id"
 
   create_table "klasses", :force => true do |t|
-    t.integer  "user_id",         :null => false
-    t.string   "name",            :null => false
-    t.integer  "level",           :null => false
-    t.integer  "lessons_per_day", :null => false
-    t.integer  "days_per_week",   :null => false
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "user_id",                                    :null => false
+    t.string   "name",                                       :null => false
+    t.integer  "level",                                      :null => false
+    t.integer  "lessons_per_day",                            :null => false
+    t.integer  "days_per_week",                              :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.string   "days",            :default => "1,2,3,4,5,6"
   end
 
   add_index "klasses", ["user_id", "name"], :name => "index_klasses_on_user_id_and_name", :unique => true
@@ -44,14 +45,6 @@ ActiveRecord::Schema.define(:version => 20120914145741) do
   end
 
   add_index "rooms", ["user_id", "number"], :name => "index_rooms_on_user_id_and_number", :unique => true
-
-  create_table "settings", :force => true do |t|
-    t.integer  "user_id",    :null => false
-    t.string   "name",       :null => false
-    t.string   "value",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
 
   create_table "subject_room_relations", :force => true do |t|
     t.integer "subject_id", :null => false

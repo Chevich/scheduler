@@ -14,5 +14,4 @@ class User < ActiveRecord::Base
   has_many :teachers, :dependent => :delete_all
   has_many :subjects, :dependent => :delete_all
   has_many :timetables, :dependent => :delete_all
-  has_many :settings, :dependent => :delete_all
 end

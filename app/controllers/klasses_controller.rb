@@ -10,10 +10,7 @@ class KlassesController < ApplicationController
 
   def create
     @klass = current_user.klasses.new
-    @klass.name = params[:klass][:name]
-    @klass.level = params[:klass][:level]
-    @klass.lessons_per_day = params[:klass][:lessons_per_day]
-    @klass.days_per_week = params[:klass][:days_per_week]
+    @klass.update_attributes(params[:klass])
     @klass.user = current_user
     if @klass.save
       flash[:success] = "Класс изменен."
@@ -40,6 +37,7 @@ class KlassesController < ApplicationController
     @klass.level = params[:klass][:level]
     @klass.lessons_per_day = params[:klass][:lessons_per_day]
     @klass.days_per_week = params[:klass][:days_per_week]
+    @klass.days = params[:klass][:days]
     if @klass.save
       flash[:success] = "Класс изменен."
       redirect_to klasses_path()

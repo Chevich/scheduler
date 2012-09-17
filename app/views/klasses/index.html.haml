@@ -6,6 +6,7 @@
       %th Год обучения
       %th Уроков в день
       %th Учебных дней в неделю
+      %th Учебные дни
       %th
       %th
       %th
@@ -15,6 +16,7 @@
         %td=f.level
         %td=f.lessons_per_day
         %td=f.days_per_week
+        %td=f.days
         %td=link_to 'Изменить', edit_klass_path(f)
         %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}
         %td=link_to 'Предметы', klass_subject_relations_path(:params => {:klasses_id => f.id })

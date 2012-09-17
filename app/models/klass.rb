@@ -8,10 +8,13 @@ class Klass < ActiveRecord::Base
 
   default_scope :order => 'klasses.id'
 
-  attr_accessible :user, :name, :level, :days_per_week, :lessons_per_day
+  attr_accessible :user, :name, :level, :days_per_week, :lessons_per_day, :days
 
   validates :user, :presence => true
   validates :name, :presence => true, :length   => { :maximum => 100 }
   validates :level, :presence => true, :inclusion => { :in => 0..9 }
 
+  def days_arr
+    days.split(',').map{|item| item.to_i} rescue (1..7)
+  end
 end
