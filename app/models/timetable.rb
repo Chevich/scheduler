@@ -85,7 +85,7 @@ class Timetable < ActiveRecord::Base
     end
 
     def self.check_bingo(current_user, should_save = true)
-      @klass_subject_relation.each do |item|
+      @teacher_klass_subject_relation.each do |item|
         return false until item[:taken]
       end
       return false until compare_current_hash_with_array
@@ -135,7 +135,7 @@ class Timetable < ActiveRecord::Base
     end
 
     def self.get_relation_by_klass(klass)
-      @teacher_klass_subject_relation.map { |item| item if item[:klass] == klass }.compact
+      @teacher_klass_subject_relation.map { |item| item if item[:klass] == klass && !item[:taken] }.compact
     end
 
     def self.get_klass_subject(klass, subject)
@@ -150,25 +150,23 @@ class Timetable < ActiveRecord::Base
     def self.calc_this(current_user, min_klass_index, min_day, min_lesson)
       @level += 1
       current_user.klasses.each_with_index do |klass, klass_index|
-        #puts "#{klass_index} #{min_klass_index}"
-        #break if klass_index < min_klass_index
         klass.days_arr.each do |day| # дни недели
           (1..klass.lessons_per_day).each do |lesson| # номер урока
             if check_day_lesson_klass(day, lesson, klass)
               get_relation_by_klass(klass).each do |relation|
                 return until @evaluate
-                teacher = relation[:teacher]
-                subject = relation[:subject]
-                klass_subject = get_klass_subject(klass, subject)
-                if klass_subject
+                if relation
+                  teacher = relation[:teacher]
+                  subject = relation[:subject]
+                  #puts "#{klass.name} #{day} #{lesson} #{subject.name} #{teacher.fio}"
                   get_rooms(teacher,subject).each do |room|
-                    if validate(day, lesson, subject, klass, klass_subject[:hours_per_week], room, teacher) && @evaluate
+                    if validate(day, lesson, subject, klass, relation[:hours_per_week], room, teacher) && @evaluate
                       @table << {day:day, lesson:lesson, klass:klass, subject:subject, room: room, teacher: teacher}
-                      klass_subject[:taken] = true
+                      relation[:taken] = true
                       check_bingo(current_user)
                       calc_this(current_user, klass_index, day, lesson)
                       @table.pop
-                      klass_subject[:taken] = false
+                      relation[:taken] = false
                     end
                   end
                 end
@@ -183,13 +181,10 @@ class Timetable < ActiveRecord::Base
     def self.calc(current_user)
       # Сохраняем klass_subject для дальнейшего использования (не соответствует модели!!!!)
       time_init = Time.now
-      current_user.klasses.each do |klass|
-        @klass_subject_relation += klass.klass_subject_relations.inject([]) do |array, item|
-          temp = []
-          item.hours_per_week.times do
-            temp << {klass:item.klass, subject:item.subject, hours_per_week:item.hours_per_week, taken:false}
-          end
-          array += temp
+      # Сохраняем teacher_subject для дальнейшего использования
+      current_user.klasses.each do |teacher|
+        teacher.klass_subject_relations.each do |item|
+          @klass_subject_relation << {klass:item.klass, subject:item.subject, hours_per_week:item.hours_per_week}
         end
       end
       # Сохраняем teacher_subject для дальнейшего использования
@@ -212,11 +207,23 @@ class Timetable < ActiveRecord::Base
       end
       # Сохраняем teacher_klass_subject_relations для дальнейшего использования
       current_user.klasses.each do |klass|
-        klass.teacher_klass_subject_relations.each do |item|
-          @teacher_klass_subject_relation << {teacher:item.teacher, klass:klass, subject:item.subject}
+        @teacher_klass_subject_relation += klass.teacher_klass_subject_relations.inject([]) do |array, item|
+          temp = []
+          @klass_subject_relation.each do |ksr|
+            if ksr[:klass] == klass && ksr[:subject] == item.subject
+              ksr[:hours_per_week].times do
+                temp << {klass:item.klass, teacher:item.teacher, subject:item.subject, taken:false, hours_per_week: ksr[:hours_per_week]}
+              end
+            end
+          end
+          array += temp
         end
       end
+
       @init_time += Time.now.minus_with_coercion(time_init)
+      #@teacher_klass_subject_relation.each do |item|
+      #  puts "item = #{item[:klass].name} #{item[:subject].name} #{item[:teacher].fio} #{item[:taken]}"
+      #end
       calc_this(current_user,0,1,1)
     end
 

@@ -81,7 +81,7 @@ TeacherKlassSubjectRelation.create({teacher:teacher2, klass: klass1, subject:sub
 #
 #room1 = Room.create({user:user, name: '2а начальные классы', number:'201'})
 #
-#klass1 = Klass.create({user:user, name: '2a', level:2, days_per_week: 1, lessons_per_day: 3})
+#klass1 = Klass.create({user:user, name: '2a', level:2, days_per_week: 1, lessons_per_day: 3, days:'1'})
 #
 #subject1 = Subject.create({user:user, name: 'Чтение', level:2, hours_per_week: 1})
 #subject2 = Subject.create({user:user, name: 'Рисование', level:2, hours_per_week: 1})
