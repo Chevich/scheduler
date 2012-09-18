@@ -8,6 +8,16 @@ class Timetable < ActiveRecord::Base
 
   def self.re_calculate(current_user)
 
+    def self.current_hash
+      new = []
+      @table.each do |row|
+        new << {"day" => row[:day], "lesson" => row[:lesson],
+                "klass_id" => row[:klass].id, "subject_id" => row[:subject].id,
+                "teacher_id" => row[:teacher].id, "room_id" => row[:room].id}
+      end
+      new
+    end
+
     def self.validate(day, lesson, subject, klass, hours_per_week, room, teacher)
       hour_count = 0
       prev_lessons = 0
@@ -66,15 +76,25 @@ class Timetable < ActiveRecord::Base
       return true
     end
 
+    def self.compare_current_hash_with_array
+      current = current_hash
+      @hash_array.each do |item|
+        return false if current - item == []
+      end
+      true
+    end
+
     def self.check_bingo(current_user, should_save = true)
       @klass_subject_relation.each do |item|
         return false until item[:taken]
       end
+      return false until compare_current_hash_with_array
       # сохраняем данное расписание
       @version += 1
       time_save = Time.now
       #puts "BINGO! (#@version)"
       if should_save
+        @hash_array << current_hash
         tt = current_user.timetables.new()
         tt.version = @version
         tt.comment = ''
@@ -130,6 +150,8 @@ class Timetable < ActiveRecord::Base
     def self.calc_this(current_user, min_klass_index, min_day, min_lesson)
       @level += 1
       current_user.klasses.each_with_index do |klass, klass_index|
+        #puts "#{klass_index} #{min_klass_index}"
+        #break if klass_index < min_klass_index
         klass.days_arr.each do |day| # дни недели
           (1..klass.lessons_per_day).each do |lesson| # номер урока
             if check_day_lesson_klass(day, lesson, klass)
@@ -159,7 +181,7 @@ class Timetable < ActiveRecord::Base
     end
 
     def self.calc(current_user)
-      # Сохраняем klass_subject для дальнейшего использования
+      # Сохраняем klass_subject для дальнейшего использования (не соответствует модели!!!!)
       time_init = Time.now
       current_user.klasses.each do |klass|
         @klass_subject_relation += klass.klass_subject_relations.inject([]) do |array, item|
@@ -202,6 +224,7 @@ class Timetable < ActiveRecord::Base
     time = Time.now()
     @save_time = 0
     @init_time = 0
+    @test_time = 0
     current_user.timetables.delete_all
     @level = 0
     @klass_subject_relation = Array.new
@@ -212,10 +235,11 @@ class Timetable < ActiveRecord::Base
     @version = 0
     @evaluate = true
     @table = Array.new
+    @hash_array = Array.new
     calc(current_user)
     calc_time = Time.now.minus_with_coercion(time)
-    #puts "DONE for #{calc_time} seconds. Save time = #{@save_time}. Init time = #{@init_time}. Calculation time = #{calc_time - @save_time- @init_time}"
-    @table
+    "DONE for #{calc_time} seconds. Save time = #@save_time. Init time = #@init_time. test time = #@test_time. Calculation time = #{calc_time - @save_time- @init_time - @test_time}"
+    #@table
   end
 
   def to_hash

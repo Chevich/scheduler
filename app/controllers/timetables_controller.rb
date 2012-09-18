@@ -4,27 +4,15 @@ class TimetablesController < ApplicationController
     @timetables = current_user.timetables.all
   end
 
-  def new
-  end
-
-  def create
-  end
-
-  def edit
-  end
-
-  def show
-  end
-
-  def update
-  end
-
-  def destroy
-  end
-
   def recalculate
-    array = Timetable.re_calculate(current_user)
-    redirect_to timetables_path()
+    message = Timetable.re_calculate(current_user)
+    @timetables = current_user.timetables.all
+    if @timetables.empty?
+      flash[:notice] = "Нет возможных вариантов расчета (#{message})"
+    else
+      flash[:notice] = "Расчитано #{"первых" if @timetables.count==30} #{@timetables.count} вариантов расписания (#{message})"
+    end
+    render 'index'
   end
 
   def delete_all

@@ -1,4 +1,4 @@
-= link_to 'Пересчитать расписания', recalculate_timetables_path(),:method => :post
+= link_to 'Пересчитать расписания', recalculate_timetables_path(),:method => :post , :data => { :confirm => 'Вы уверены что хотите очистить список и пересчитать ВСЕ расписания?' }
 
 - unless @timetables.empty?
   %table
@@ -12,7 +12,7 @@
         %td=f.comment
         %td= link_to 'Смотреть', timetable_timetables_dtls_path(f)
   %div
-    = link_to "Очистить список", delete_all_timetables_path(),:method => :post
+    = link_to "Очистить список", delete_all_timetables_path(),:method => :post, :data => { :confirm => 'Вы уверены что хотите очистить список?' }
 - else
   .empty Пустой список
 

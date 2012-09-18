@@ -34,8 +34,8 @@ Scheduler::Application.routes.draw do
       post 'delete_all'
     end
   end
-  resources :timetables do
-    resources :timetables_dtls
+  resources :timetables, :only => :index do
+    resources :timetables_dtls, :only => :index
     collection do
       post 'recalculate'
       post 'delete_all'

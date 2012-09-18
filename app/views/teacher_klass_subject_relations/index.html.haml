@@ -11,7 +11,7 @@
         %td=f.klass.name
         %td=f.subject.name
         %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}, :params => {teachers_id: @teacher.id}
-  = link_to 'Удалить все классы', delete_all_teacher_klass_subject_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post
+  = link_to 'Удалить все классы', delete_all_teacher_klass_subject_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post, :data => { :confirm => 'Вы уверены?' }
 - else
   .empty Пустой список
   = link_to 'Добавить все классы', add_all_teacher_klass_subject_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post

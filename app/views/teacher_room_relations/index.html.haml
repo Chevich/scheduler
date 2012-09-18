@@ -9,7 +9,7 @@
       %tr
         %td="#{f.room.name}(#{f.room.number})"
         %td=link_to 'Удалить', f, :method => :delete, :data => {confirm: "Вы уверены?"}, :params => {teachers_id: @teacher.id}
-  = link_to 'Удалить все кабинеты', delete_all_teacher_room_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post
+  = link_to 'Удалить все кабинеты', delete_all_teacher_room_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post, :data => { :confirm => 'Вы уверены?' }
 - else
   .empty Пустой список
   = link_to 'Добавить все кабинеты', add_all_teacher_room_relations_path(:params => {teachers_id: @teacher.id} ),:method => :post
