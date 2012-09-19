@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.7'
 
 gem 'pg'
+gem 'execjs'
+gem 'therubyracer'
+
 
 
 # Gems used only for assets and not required
