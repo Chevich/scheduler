@@ -1,3 +1,4 @@
+#coding: utf-8
 class Timetable < ActiveRecord::Base
   has_many :timetables_dtls, :dependent => :delete_all
   belongs_to :user
@@ -18,21 +19,23 @@ class Timetable < ActiveRecord::Base
       new
     end
 
+    def self.log(text, force = false)
+      puts text if @show_log || force
+    end
+
     def self.validate(day, lesson, subject, klass, hours_per_week, room, teacher)
+      log 'validate'
       hour_count = 0
       prev_lessons = 0
-      subject_count = 0
       @table.each do |row|
         # был ли в этот день уже такой урок в данном классе (и часов в неделю больше чем дней учебы класса)
-        if row[:day] == day && row[:subject] == subject && row[:klass] == klass && hours_per_week <= klass.days_arr.count
+        if row[:day] == day && row[:subject] == subject && row[:klass] == klass && hours_per_week <= klass.days_per_week
+          log "reject 1 #{subject.name}"
           return false
-        end
-        # сколько уроков уже расставили - чтоб не переборщить?
-        if row[:klass] == klass && row[:subject] == subject
-          subject_count += 1
         end
         # между сохраненным днем и текущим разница не больше чем можно классу
         if (row[:day] - day).abs >= klass.days_per_week && row[:klass] == klass
+          log 'reject 2'
           return false
         end
         ## был ли в предыдущий или последующий день уже такой урок в данном классе (если часов в неделю меньше 4)
@@ -41,14 +44,17 @@ class Timetable < ActiveRecord::Base
         #end
         # свободен ли для вставки данный урок
         if row[:day] == day && row[:lesson] == lesson && row[:klass] == klass
+          log 'reject 3'
           return false
         end
         # свободен ли кабинет для урока?
         if row[:day] == day && row[:lesson] == lesson && row[:room] == room
+          log 'reject 4'
           return false
         end
         # свободен ли учитель для урока?
         if row[:day] == day && row[:lesson] == lesson && row[:teacher] == teacher
+          log 'reject 5'
           return false
         end
         # нельзя оставлять форточки
@@ -58,9 +64,7 @@ class Timetable < ActiveRecord::Base
       # нельзя оставлять форточки
       # проверим подсчитанные уроки (должно быть lesson - 1)
       if prev_lessons != (lesson -1)
-        return false
-      end
-      if subject_count >= hours_per_week
+        log 'reject 6'
         return false
       end
       return true
@@ -88,11 +92,12 @@ class Timetable < ActiveRecord::Base
       @teacher_klass_subject_relation.each do |item|
         return false until item[:taken]
       end
+      log 'check_bingo'
       return false until compare_current_hash_with_array
       # сохраняем данное расписание
       @version += 1
       time_save = Time.now
-      #puts "BINGO! (#@version)"
+      log "BINGO! (#@version)"
       if should_save
         @hash_array << current_hash
         tt = current_user.timetables.new()
@@ -111,7 +116,7 @@ class Timetable < ActiveRecord::Base
         end
       end
       @save_time += Time.now.minus_with_coercion(time_save)
-      @evaluate = false if @version >= 30
+      @evaluate = false if @version >= 20
       true
     end
 
@@ -155,10 +160,11 @@ class Timetable < ActiveRecord::Base
             if check_day_lesson_klass(day, lesson, klass)
               get_relation_by_klass(klass).each do |relation|
                 return until @evaluate
+                #return if Time.now.minus_with_coercion(@time)>10
                 if relation
                   teacher = relation[:teacher]
                   subject = relation[:subject]
-                  #puts "#{klass.name} #{day} #{lesson} #{subject.name} #{teacher.fio}"
+                  log "#{klass.name} #{day} #{lesson} #{subject.name} #{teacher.fio}"
                   get_rooms(teacher,subject).each do |room|
                     if validate(day, lesson, subject, klass, relation[:hours_per_week], room, teacher) && @evaluate
                       @table << {day:day, lesson:lesson, klass:klass, subject:subject, room: room, teacher: teacher}
@@ -221,17 +227,18 @@ class Timetable < ActiveRecord::Base
       end
 
       @init_time += Time.now.minus_with_coercion(time_init)
-      #@teacher_klass_subject_relation.each do |item|
-      #  puts "item = #{item[:klass].name} #{item[:subject].name} #{item[:teacher].fio} #{item[:taken]}"
-      #end
+      @teacher_klass_subject_relation.each do |item|
+        log "item = #{item[:klass].name} #{item[:subject].name} #{item[:teacher].fio} #{item[:taken]} hpw#{item[:hours_per_week]}", true
+      end
       calc_this(current_user,0,1,1)
     end
 
 
-    time = Time.now()
+    @time = Time.now()
     @save_time = 0
     @init_time = 0
     @test_time = 0
+    @show_log = false
     current_user.timetables.delete_all
     @level = 0
     @klass_subject_relation = Array.new
@@ -244,7 +251,7 @@ class Timetable < ActiveRecord::Base
     @table = Array.new
     @hash_array = Array.new
     calc(current_user)
-    calc_time = Time.now.minus_with_coercion(time)
+    calc_time = Time.now.minus_with_coercion(@time)
     "DONE for #{calc_time} seconds. Save time = #@save_time. Init time = #@init_time. test time = #@test_time. Calculation time = #{calc_time - @save_time- @init_time - @test_time}"
     #@table
   end
