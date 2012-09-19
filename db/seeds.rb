@@ -5,6 +5,8 @@ Room.delete_all
 Klass.delete_all
 Subject.delete_all
 Teacher.delete_all
+Timetable.delete_all
+TimetablesDtl.delete_all
 
 user = User.create({:email => 'andy.chevich@gmail.com', :password => 'andy123'})
 

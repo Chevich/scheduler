@@ -20,7 +20,7 @@ class Timetable < ActiveRecord::Base
     end
 
     def self.log(text, force = false)
-      puts text if @show_log || force
+      #puts text if @show_log || force
     end
 
     def self.validate(day, lesson, subject, klass, hours_per_week, room, teacher)
